@@ -1,0 +1,116 @@
+/* Cabecera de la pagina*/
+.container {
+    width: 100%;
+    height: 131px;
+    position: relative;
+  }
+  
+  .gradient {
+    width: 100%;
+    height: 131px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    background: linear-gradient(180deg, #F88B30 11%, #F88B30 13%, #F2953C 48%, rgba(251, 164, 86, 0.86) 79%, rgba(255, 199, 149, 0.86) 100%);
+  }
+  
+  .banner {
+    width: 35.99px;
+    height: 42.67px;
+    left: 90%;
+    top: 44px;
+    position: absolute;
+  }
+  
+  .logo {
+    width: 243px;
+    height: 82px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 24px;
+    position: absolute;
+  }
+  /*Barra de busqueda*/
+  .containerBusqueda {
+    width: 813px;
+    height: 50px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    padding-left: 32%;
+    padding-right: 8px;
+    background: white;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    display: inline-flex;
+  }
+  
+  .input-wrapper {
+    flex: 1 1 0;
+    height: 40px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 12px;
+    padding-right: 52px;
+    background: #FBFBFB;
+    border-radius: 100px;
+    border: 1px #EBEBEB solid;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    display: flex;
+    
+  }
+  
+  .icon {
+    width: 24px;
+    height: 24px;
+    position: relative;
+  }
+  
+  .icon-inner {
+    width: 16px;
+    height: 16px;
+    left: 3px;
+    top: 3px;
+    position: absolute;
+    background: #999999;
+  }
+  
+  .text {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 20px; /* ajusta el radio de la esquina para que coincida con el contenedor */
+    background-color: #FBFBFB; /* color de fondo */
+    font-size: 16px;
+    font-family: 'Arial', sans-serif; /* ajusta la fuente según sea necesario */
+  }
+  .text:focus {
+    outline: none; /* elimina el borde al enfocar */
+  }
+  
+  .action {
+    padding: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+    display: flex;
+  }
+  
+  .action-icon {
+    width: 24px;
+    height: 24px;
+    position: relative;
+  }
+  
+  .action-icon-inner {
+    width: 18px;
+    height: 12px;
+    left: 3px;
+    top: 6px;
+    position: absolute;
+    background: black;
+  }
+  
+  
