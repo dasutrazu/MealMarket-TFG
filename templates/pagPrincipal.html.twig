@@ -1,0 +1,25 @@
+{% extends 'header.html.twig' %}
+
+{% block body %}
+    {{ parent() }} {# Esto incluirá el contenido del bloque body de header.html.twig #}
+
+    <div class="container-Productos">
+        {% if prod is defined %}
+
+            {% for producto in prod|slice(0, 20)  %}
+                <div class="box-Productos">
+                    <img src="{{ producto.img }}" alt="{{ producto.name }}" />
+                    <h2>{{ producto.name }}</h2>
+                    <p>Supermercado: {{ producto.supermarket }}</p>
+                    <p>Precio: {{ producto.price }}</p>
+                </div>
+                {% if loop.index is divisible by(5) and not loop.last %}
+                    <br> <!-- Agrega un salto de línea después de cada 5 productos -->
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No se encontraron productos.</p>
+        {% endif %}
+    </div>
+{% endblock %}
+

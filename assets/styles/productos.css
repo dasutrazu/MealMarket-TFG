@@ -1,0 +1,12 @@
+.container-Productos {
+    display: flex;
+    width: 100%; /* Ocupar todo el ancho disponible */
+    height: 578px; /* Altura fija */
+  }
+  .box-Productos {
+    flex: 1; /* Que cada div ocupe el mismo espacio */
+    width: 25%;
+    height: 200px; /* Ocupar toda la altura del contenedor */
+    border: 1px solid black; /* Borde para visualizar los divs */
+    box-sizing: border-box; /* Incluir el borde en el tamaño total */
+  }

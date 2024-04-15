@@ -19,12 +19,17 @@ use Symfony\Component\Filesystem\Path;
 
 use App\Controller\JsonResponse;
 
+use App\Entity\Productos;
+
 
 class defaultu extends AbstractController{
 
 
     #[Route('/defaults', name: 'defaults')]
-    public function defaults(){
-       return $this-> render('header.html.twig');
+    public function defaults(EntityManagerInterface $entityManager){
+
+        $productos= $entityManager->getRepository(Productos::class)->findAll();
+        //var_dump($productos);
+       return $this-> render('pagPrincipal.html.twig', ['prod' => $productos]);
     }
 }
