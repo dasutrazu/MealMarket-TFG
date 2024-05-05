@@ -1,0 +1,28 @@
+{% extends 'header.html.twig' %} {# aporta el css#}
+
+    {% block body %}
+   <header>
+            <div class="container">
+                <div class="gradient"></div>
+                <img class="logo" src="img\logo.png"  alt="la imagen no se ha podido cargar"/>
+                     
+            </div>
+        </header>
+    <div class="login-container">
+            <h2>Iniciar sesión</h2>
+           {#  {% if error %}
+                <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {#  cambiar el action  #}
+            <form action="" method="post">
+                <div class="login-wrapper">
+                    <input type="text" name="_username" placeholder="Nombre de usuario" value="" required>
+                </div>
+                <div class="login-wrapper">
+                    <input type="password" name="_password" placeholder="Contraseña" required>
+                </div>
+                <button type="submit">Iniciar sesión</button>
+            </form>
+        </div>
+    {% endblock %}
