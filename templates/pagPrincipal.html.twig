@@ -5,21 +5,41 @@
 
     <div class="container-Productos">
         {% if prod is defined %}
-
             {% for producto in prod|slice(0, 20)  %}
                 <div class="box-Productos">
-                    <img src="{{ producto.img }}" alt="{{ producto.name }}" />
+                    <img class="img-Producto" src="{{ producto.img }}" alt="{{ producto.name }}" />
                     <h2>{{ producto.name }}</h2>
                     <p>Supermercado: {{ producto.supermarket }}</p>
                     <p>Precio: {{ producto.price }}</p>
                 </div>
                 {% if loop.index is divisible by(5) and not loop.last %}
-                    <br> <!-- Agrega un salto de línea después de cada 5 productos -->
+                    <div style="clear: left;"></div> <!-- Agrega un salto de línea después de cada 5 productos -->
                 {% endif %}
             {% endfor %}
         {% else %}
             <p>No se encontraron productos.</p>
         {% endif %}
     </div>
-{% endblock %}
 
+    {% block javascript %}
+    <script>
+        function crearSalto(height) {
+            console.log("Creando salto de línea...");
+            var ele = document.createElement('div'); // crear nodo
+            ele.style.clear = 'left'; // css posicionamiento
+            return ele; // Devolver el elemento creado
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("DOMContentLoaded evento disparado...");
+            var productos = document.querySelectorAll('.box-Productos');
+            for (var i = 0; i < productos.length; i++) {
+                if ((i + 1) % 5 === 0 && i !== productos.length - 1) {
+                    var br = crearSalto(20); // Crear un salto de línea
+                    productos[i].parentNode.insertBefore(br, productos[i].nextSibling);
+                }
+            }
+        });
+    </script>
+    {% endblock %}
+{% endblock %}

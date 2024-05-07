@@ -1,0 +1,386 @@
+<!--
+// v0 by Vercel.
+// https://v0.dev/t/xdUVllDJWKH
+-->
+
+<style>h1, h2, h3, h4, h5, h6 { font-family: 'Archivo', sans-serif; --font-sans: 'Archivo'; }
+</style>
+<style>body { font-family: 'Rethink Sans', sans-serif; --font-sans: 'Rethink Sans'; }
+</style>
+<div class="flex flex-col min-h-screen">
+  <header class="bg-gray-900 text-white py-4 px-6 flex items-center justify-between">
+    <div class="flex items-center">
+      <a class="text-xl font-bold mr-6" href="#">
+        Supermercado
+      </a>
+      <div class="relative w-full max-w-md">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-5 w-5 text-gray-400"
+          >
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.3-4.3"></path>
+          </svg>
+        </div>
+        <input
+          class="flex h-10 border border-input px-3 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-gray-800 text-white py-2 pl-10 pr-4 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          placeholder="Buscar productos..."
+          type="text"
+        />
+      </div>
+    </div>
+    <div class="flex items-center">
+      <a class="text-white hover:text-primary transition-colors duration-300 mr-4" href="#">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-6 w-6"
+        >
+          <circle cx="8" cy="21" r="1"></circle>
+          <circle cx="19" cy="21" r="1"></circle>
+          <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+        </svg>
+      </a>
+      <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2">
+        Iniciar sesión
+      </button>
+    </div>
+  </header>
+  <main class="flex-1 bg-gray-100 py-8">
+    <div class="container mx-auto px-4 md:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="col-span-1 md:col-span-1">
+          <h2 class="text-lg font-bold mb-4">Filtros</h2>
+          <div class="bg-white p-4 rounded-md shadow">
+            <h3 class="text-md font-bold mb-2">Categoría</h3>
+            <div class="space-y-2">
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center">
+                <button
+                  type="button"
+                  role="checkbox"
+                  aria-checked="false"
+                  data-state="unchecked"
+                  value="on"
+                  class="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                  id="category-1"
+                ></button>
+                <input
+                  aria-hidden="true"
+                  tabindex="-1"
+                  type="checkbox"
+                  value="on"
+                  style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px;"
+                />
+                <span class="ml-2">Frutas y verduras</span>
+              </label>
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center">
+                <button
+                  type="button"
+                  role="checkbox"
+                  aria-checked="false"
+                  data-state="unchecked"
+                  value="on"
+                  class="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                  id="category-2"
+                ></button>
+                <input
+                  aria-hidden="true"
+                  tabindex="-1"
+                  type="checkbox"
+                  value="on"
+                  style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px;"
+                />
+                <span class="ml-2">Lácteos</span>
+              </label>
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center">
+                <button
+                  type="button"
+                  role="checkbox"
+                  aria-checked="false"
+                  data-state="unchecked"
+                  value="on"
+                  class="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                  id="category-3"
+                ></button>
+                <input
+                  aria-hidden="true"
+                  tabindex="-1"
+                  type="checkbox"
+                  value="on"
+                  style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px;"
+                />
+                <span class="ml-2">Carnes y pescados</span>
+              </label>
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center">
+                <button
+                  type="button"
+                  role="checkbox"
+                  aria-checked="false"
+                  data-state="unchecked"
+                  value="on"
+                  class="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                  id="category-4"
+                ></button>
+                <input
+                  aria-hidden="true"
+                  tabindex="-1"
+                  type="checkbox"
+                  value="on"
+                  style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px;"
+                />
+                <span class="ml-2">Enlatados y conservas</span>
+              </label>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-md shadow mt-4">
+            <h3 class="text-md font-bold mb-2">Precio</h3>
+            <div class="space-y-2">
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center">
+                <button
+                  type="button"
+                  role="checkbox"
+                  aria-checked="false"
+                  data-state="unchecked"
+                  value="on"
+                  class="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                  id="price-range-1"
+                ></button>
+                <input
+                  aria-hidden="true"
+                  tabindex="-1"
+                  type="checkbox"
+                  value="on"
+                  style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px;"
+                />
+                <span class="ml-2">Menos de $10</span>
+              </label>
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center">
+                <button
+                  type="button"
+                  role="checkbox"
+                  aria-checked="false"
+                  data-state="unchecked"
+                  value="on"
+                  class="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                  id="price-range-2"
+                ></button>
+                <input
+                  aria-hidden="true"
+                  tabindex="-1"
+                  type="checkbox"
+                  value="on"
+                  style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px;"
+                />
+                <span class="ml-2">$10 - $20</span>
+              </label>
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center">
+                <button
+                  type="button"
+                  role="checkbox"
+                  aria-checked="false"
+                  data-state="unchecked"
+                  value="on"
+                  class="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                  id="price-range-3"
+                ></button>
+                <input
+                  aria-hidden="true"
+                  tabindex="-1"
+                  type="checkbox"
+                  value="on"
+                  style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px;"
+                />
+                <span class="ml-2">$20 - $50</span>
+              </label>
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center">
+                <button
+                  type="button"
+                  role="checkbox"
+                  aria-checked="false"
+                  data-state="unchecked"
+                  value="on"
+                  class="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                  id="price-range-4"
+                ></button>
+                <input
+                  aria-hidden="true"
+                  tabindex="-1"
+                  type="checkbox"
+                  value="on"
+                  style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px;"
+                />
+                <span class="ml-2">Más de $50</span>
+              </label>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-md shadow mt-4">
+            <h3 class="text-md font-bold mb-2">Marca</h3>
+            <div class="space-y-2">
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center">
+                <button
+                  type="button"
+                  role="checkbox"
+                  aria-checked="false"
+                  data-state="unchecked"
+                  value="on"
+                  class="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                  id="brand-1"
+                ></button>
+                <input
+                  aria-hidden="true"
+                  tabindex="-1"
+                  type="checkbox"
+                  value="on"
+                  style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px;"
+                />
+                <span class="ml-2">Marca 1</span>
+              </label>
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center">
+                <button
+                  type="button"
+                  role="checkbox"
+                  aria-checked="false"
+                  data-state="unchecked"
+                  value="on"
+                  class="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                  id="brand-2"
+                ></button>
+                <input
+                  aria-hidden="true"
+                  tabindex="-1"
+                  type="checkbox"
+                  value="on"
+                  style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px;"
+                />
+                <span class="ml-2">Marca 2</span>
+              </label>
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center">
+                <button
+                  type="button"
+                  role="checkbox"
+                  aria-checked="false"
+                  data-state="unchecked"
+                  value="on"
+                  class="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                  id="brand-3"
+                ></button>
+                <input
+                  aria-hidden="true"
+                  tabindex="-1"
+                  type="checkbox"
+                  value="on"
+                  style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px;"
+                />
+                <span class="ml-2">Marca 3</span>
+              </label>
+              <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex items-center">
+                <button
+                  type="button"
+                  role="checkbox"
+                  aria-checked="false"
+                  data-state="unchecked"
+                  value="on"
+                  class="peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground"
+                  id="brand-4"
+                ></button>
+                <input
+                  aria-hidden="true"
+                  tabindex="-1"
+                  type="checkbox"
+                  value="on"
+                  style="transform: translateX(-100%); position: absolute; pointer-events: none; opacity: 0; margin: 0px;"
+                />
+                <span class="ml-2">Marca 4</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-3 md:col-span-3">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-bold">Productos</h2>
+            <button
+              class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
+              type="button"
+              id="radix-:re:"
+              aria-haspopup="menu"
+              aria-expanded="false"
+              data-state="closed"
+            >
+              Ordenar por
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="ml-2 h-4 w-4"
+              >
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <div class="bg-white rounded-md shadow overflow-hidden">
+              <a href="#">
+                <img
+                  src="/placeholder.svg"
+                  alt="Producto 1"
+                  width="300"
+                  height="200"
+                  class="w-full h-48 object-cover"
+                  style="aspect-ratio: 300 / 200; object-fit: cover;"
+                />
+                <div class="p-4">
+                  <h3 class="text-lg font-bold mb-2">Producto 1</h3>
+                  <p class="text-gray-500 mb-4">Descripción del producto 1</p>
+                  <div class="flex items-center justify-between">
+                    <span class="text-primary font-bold text-lg">$9.99</span>
+                    <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2">
+                      Agregar al carrito
+                    </button>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="bg-gray-900 text-white py-6 px-4 md:px-8">
+    <div class="container mx-auto flex items-center justify-between">
+      <p class="text-sm">© 2024 Supermercado</p>
+      <nav class="flex items-center space-x-4">
+        <a class="text-white hover:text-primary transition-colors duration-300" href="#">
+          Términos de servicio
+        </a>
+        <a class="text-white hover:text-primary transition-colors duration-300" href="#">
+          Política de privacidad
+        </a>
+        <a class="text-white hover:text-primary transition-colors duration-300" href="#">
+          Contacto
+        </a>
+      </nav>
+    </div>
+  </footer>
+</div>

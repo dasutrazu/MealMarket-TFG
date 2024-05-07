@@ -10,3 +10,7 @@
     border: 1px solid black; /* Borde para visualizar los divs */
     box-sizing: border-box; /* Incluir el borde en el tamaño total */
   }
+  .img-Producto{
+    width: 20px;
+    height: 70px;
+  }
