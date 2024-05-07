@@ -39,36 +39,32 @@
   
   /*Barra de busqueda*/
   .containerBusqueda {
-    width: 50%;
+    width:50%;
     height: 150px;
-    padding-top: 15px;
-    padding-bottom: 10px;
-    padding-left: 22%;
-    padding-right: 8px;
-    background: rgba(255, 255, 255, 0.377);
+    margin-left: 28%;
+
+    margin-top: 30px;
     justify-content: center;
     align-items: center;
-    gap: 4px;
     display: inline-flex;
   }
   
   /*Donde se escribe para buscar*/
   .input-wrapper {
-    flex: 1 1 0;
+    width: 100px;
     height: 40px;
     padding-top: 8px;
     padding-bottom: 8px;
     padding-left: 12px;
-    padding-right: 52px;
+    padding-right: 32px;
     background: #FBFBFB;
     border-radius: 100px;
     border: 1px #8d1212 solid;
     justify-content: center;
     align-items: center;
     gap: 8px;
+    flex: 1 1 0;
     display: flex;
-    
-    
   }
   
 
@@ -118,4 +114,58 @@
     background: black;
   }
   
-  
+  /* LOGIN FORM */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #ffc08d; /* Color de fondo */
+    color: #fff; /* Color del texto */
+}
+  .login-container {
+    width: 300px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    border-radius: 10px;
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.login-wrapper {
+  width: 92%;
+    margin-bottom: 20px;
+    margin-right: 5%;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #FBFBFB; /* Color de fondo del campo de entrada */
+    color: #333; /* Color del texto */
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #F2953C; /* Color de fondo del botón */
+    color: #fff; /* Color del texto del botón */
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #F88B30; /* Color de fondo del botón al pasar el ratón */
+}
