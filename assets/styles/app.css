@@ -134,9 +134,9 @@
 h2 {
     margin-bottom: 20px;
 }
-
+  
 .login-wrapper {
-  width: 92%;
+    width: 92%;
     margin-bottom: 20px;
     margin-right: 5%;
 }
@@ -151,9 +151,10 @@ input[type="password"] {
     color: #333; /* Color del texto */
 }
 
+/*     */
 input[type="text"]:focus,
 input[type="password"]:focus {
-    outline: none;
+  outline: none;
 }
 
 button {
@@ -164,8 +165,21 @@ button {
     background-color: #F2953C; /* Color de fondo del botón */
     color: #fff; /* Color del texto del botón */
     cursor: pointer;
+    font-size: 1.2em;
+}
+.send {
+  width: 49%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #F2953C; /* Color de fondo del botón */
+  color: #fff; /* Color del texto del botón */
+  cursor: pointer;
+  font-size: 1.2em;
 }
 
 button:hover {
     background-color: #F88B30; /* Color de fondo del botón al pasar el ratón */
 }
+
+

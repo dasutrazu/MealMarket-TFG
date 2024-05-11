@@ -1,0 +1,29 @@
+{% extends 'header.html.twig' %} {# aporta el css#}
+    {% block body %}
+        <header>
+            <div class="container">
+                <div class="gradient"></div>
+                <img class="logo" src="img\logo.png"  alt="la imagen no se ha podido cargar"/>
+                <img class="banner" src="img\icono.png" alt="La img del user no se ha podido cargar" />    
+            </div>
+        </header>
+        <div class="login-container">
+            <form action="{{ path('login') }}" method="post">
+                <div ><h1>Nuevo Usuario</h1>
+                <div class="login-wrapper">
+                    <label for="newEmail">Email:</label>
+                        <input type="text" name="newEmail" placeholder="email@example.com"><br><br>
+                        <label for="newUser">Nombre de usuario:</label>
+                        <input type="text" name="newUser" placeholder="pepito"><br><br>
+                        <label for="newPassword">Contraseña:</label>
+                        <input type="password" name="newPassword"><br><br>
+                       
+                </div>
+                        <!--Buttons Send And Clear  -->
+                        <input class="send" type="submit" value="Enviar"> 
+                        <input class="send" type="reset" value="Borrar"> <br><br>
+                <a href="{{ path('login') }}"> Volver al login</a>
+            </div>
+            </form>
+          
+       {% endblock %}

@@ -8,10 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ProductosRepository::class)]
 class Productos
 {
+    /*   ATRIBUTOS */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-
     private ?int $ID_prod = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -20,16 +20,16 @@ class Productos
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $supermarket = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $category = null;
+
     #[ORM\Column(nullable: true)]
     private ?float $price = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $img = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $category = null;
-
-
+    /*     METODOS      */
 
     public function getIDProd(): ?int
     {

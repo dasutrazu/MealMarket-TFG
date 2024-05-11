@@ -20,14 +20,23 @@ use Symfony\Component\Filesystem\Path;
 use App\Controller\JsonResponse;
 
 use App\Entity\Productos;
-class login extends AbstractController{
+class loginController extends AbstractController{
 
 
     #[Route('/login', name: 'login')]
-    public function defaults(EntityManagerInterface $entityManager){
+    public function login(EntityManagerInterface $entityManager){
 
         $productos= $entityManager->getRepository(Productos::class)->findAll();
         //var_dump($productos);
        return $this-> render('login.html.twig');
     }
+
+    #[Route('/registro', name: 'registro')]
+    public function index(): Response
+    {
+        return $this->render('registro.html.twig');
+    }
+
+
+
 }

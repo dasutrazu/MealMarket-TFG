@@ -5,7 +5,7 @@
             <div class="container">
                 <div class="gradient"></div>
                 <img class="logo" src="img\logo.png"  alt="la imagen no se ha podido cargar"/>
-                     
+                <img class="banner" src="img\icono.png" alt="La img del user no se ha podido cargar" />
             </div>
         </header>
     <div class="login-container">
@@ -17,12 +17,17 @@
             {#  cambiar el action  #}
             <form action="" method="post">
                 <div class="login-wrapper">
+                <label style="font-weight:bolder;">Usuario</label>
                     <input type="text" name="_username" placeholder="Nombre de usuario" value="" required>
                 </div>
                 <div class="login-wrapper">
+                <label>Contraseña</label>
                     <input type="password" name="_password" placeholder="Contraseña" required>
                 </div>
                 <button type="submit">Iniciar sesión</button>
+                <br> <br>
+                <a href="{{ path('registro') }}"> Crear una nueva cuenta</a>
+
             </form>
         </div>
     {% endblock %}
