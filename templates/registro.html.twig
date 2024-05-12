@@ -1,29 +1,45 @@
 {% extends 'header.html.twig' %} {# aporta el css#}
-    {% block body %}
-        <header>
-            <div class="container">
-                <div class="gradient"></div>
-                <img class="logo" src="img\logo.png"  alt="la imagen no se ha podido cargar"/>
-                <img class="banner" src="img\icono.png" alt="La img del user no se ha podido cargar" />    
-            </div>
-        </header>
-        <div class="login-container">
-            <form action="{{ path('login') }}" method="post">
-                <div ><h1>Nuevo Usuario</h1>
+{% block body %}
+    <header>
+        <div class="container">
+            <div class="gradient"></div>
+            <img class="logo" src="img\logo.png"  alt="la imagen no se ha podido cargar"/>
+            <img class="banner" src="img\icono.png" alt="La img del user no se ha podido cargar" />    
+        </div>
+    </header>
+    <div class="login-container">
+        <form id="registrationForm" action="{{ path('login') }}" method="post">
+            <div>
+                <h1>Nuevo Usuario</h1>
                 <div class="login-wrapper">
                     <label for="newEmail">Email:</label>
-                        <input type="text" name="newEmail" placeholder="email@example.com"><br><br>
-                        <label for="newUser">Nombre de usuario:</label>
-                        <input type="text" name="newUser" placeholder="pepito"><br><br>
-                        <label for="newPassword">Contraseña:</label>
-                        <input type="password" name="newPassword"><br><br>
-                       
+                    <input type="text" name="newEmail" placeholder="email@example.com"><br><br>
+                    <label for="newUser">Nombre de usuario:</label>
+                    <input type="text" name="newUser" placeholder="pepito"><br><br>
+                    <label for="newPassword">Contraseña:</label>
+                    <input type="password" id="newPassword" name="newPassword"><br><br>
+                    <label for="newPassword2">Repita la contraseña:</label>
+                    <input type="password" id="newPassword2" name="newPassword2"><br><br>
                 </div>
-                        <!--Buttons Send And Clear  -->
-                        <input class="send" type="submit" value="Enviar"> 
-                        <input class="send" type="reset" value="Borrar"> <br><br>
+                <!--Buttons Send And Clear  -->
+                <input class="send" type="submit" value="Enviar"> 
+                <input class="send" type="reset" value="Borrar"> <br><br>
                 <a href="{{ path('login') }}"> Volver al login</a>
             </div>
-            </form>
-          
-       {% endblock %}
+        </form>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script>
+        function validatePasswords() {
+            var password1 = document.getElementById("newPassword").value;
+            var password2 = document.getElementById("newPassword2").value;
+
+            if (password1 !== password2) {
+                alert("Las contraseñas no coinciden.");
+                return false; // Evita que el formulario se envíe
+            }
+            return true; // Permite que el formulario se envíe si las contraseñas coinciden
+        }
+    </script>
+{% endblock %}
