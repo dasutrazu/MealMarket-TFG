@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}MealMarket{% endblock %}</title>
         {% block stylesheets %}
 
         {% endblock %}
@@ -12,14 +12,14 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}
-        <header>
+            <header>
             <div class="container">
                 <div class="gradient"></div>
                 <img class="logo" src="img\logo.png"  alt="la imagen no se ha podido cargar"/>
-                     <img class="banner" src="img\icono.png" alt="La img del user no se ha podido cargar" />
+                <img class="banner" src="img\icono.png" alt="La img del user no se ha podido cargar" />
             </div>
         </header>
+        {% block body %}
         <div class="containerBusqueda">
             <div class="input-wrapper">
                 <div class="icon"> <img src="img\lupa.png" alt="busqueda"/>

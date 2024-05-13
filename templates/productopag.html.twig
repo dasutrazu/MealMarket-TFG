@@ -1,0 +1,15 @@
+{% extends 'header.html.twig' %}
+
+{% block body %}
+    {{ parent() }} {# Esto incluirá el contenido del bloque body de header.html.twig #}
+
+
+<div >
+  <img style="width: 428px; height: 458px; left: 62px; top: 196px; position: absolute" src="https://via.placeholder.com/428x458" />
+  <div style="width: 545px; height: 0px; left: 570px; top: 240px; position: absolute; border: 1px black solid"></div>
+  <div style="width: 540px; height: 70px; left: 580px; top: 240px; position: absolute; color: black; font-size: 16px; font-family: Source Sans Pro; font-weight: 600; line-height: 24px; word-wrap: break-word">Nombre del producto</div>
+  <div style="width: 508px; height: 0px; left: 570px; top: 240px; position: absolute; transform: rotate(90deg); transform-origin: 0 0; border: 1px black solid"></div>
+</div>
+
+
+{% endblock %}

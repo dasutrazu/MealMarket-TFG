@@ -5,16 +5,16 @@
 
     <div class="container-Productos">
         {% if prod is defined %}
-            {% for producto in prod|slice(0, 20)  %}
+            {% for producto in prod|slice(0, 4)  %}
                 <div class="box-Productos">
+                    <a href="{{ path('meal', {'idProduct': producto.getIDProd()}) }}" class="linkproducto">
                     <img class="img-Producto" src="{{ producto.img }}" alt="{{ producto.name }}" />
                     <h2>{{ producto.name }}</h2>
                     <p>Supermercado: {{ producto.supermarket }}</p>
-                    <p>Precio: {{ producto.price }}</p>
+                    <h4>{{ producto.price }}</h4>
+                    <p>valoracion</p>
+                    </a>
                 </div>
-                {% if loop.index is divisible by(5) and not loop.last %}
-                    <div style="clear: left;"></div> <!-- Agrega un salto de línea después de cada 5 productos -->
-                {% endif %}
             {% endfor %}
         {% else %}
             <p>No se encontraron productos.</p>

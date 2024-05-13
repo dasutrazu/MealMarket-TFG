@@ -32,4 +32,13 @@ class defaultu extends AbstractController{
         //var_dump($productos);
        return $this-> render('pagPrincipal.html.twig', ['prod' => $productos]);
     }
+
+
+    #[Route('/mealmarket/{idProduct}', name: 'meal')]
+    public function meal(EntityManagerInterface $entityManager, $idProduct, Request $request): Response
+    {
+        
+        dump($idProduct);
+        return $this->render("productopag.html.twig");
+    }
 }
