@@ -20,7 +20,9 @@ class Favoritos
     #[ORM\Column]
     private ?int $id_producto = null;
 
-    /*     METODOS      */
+        /*     RELACIONES      */
+
+        /*     METODOS      */
     
     public function getIdFavoritos(): ?int
     {

@@ -3,11 +3,20 @@
 {% block body %}
     {{ parent() }} {# Esto incluirá el contenido del bloque body de header.html.twig #}
 
+{# Ver si el usuario está logueado #}
+<div style="color:black;">{% if app.user %}
+    <p>Bienvenido, {{ app.user.username }}</p>
+{% else %}
+    <p>No estás autenticado.</p>
+{% endif %} </div>
+
+
+{# Todos los productos #}
     <div class="container-Productos">
         {% if prod is defined %}
             {% for producto in prod|slice(0, 4)  %}
                 <div class="box-Productos">
-                    <a href="{{ path('meal', {'idProduct': producto.getIDProd()}) }}" class="linkproducto">
+                    <a href="{{ path('meal', {'idProduct': producto.getIdProducto()}) }}" class="linkproducto">
                     <img class="img-Producto" src="{{ producto.img }}" alt="{{ producto.name }}" />
                     <h2>{{ producto.name }}</h2>
                     <p>Supermercado: {{ producto.supermarket }}</p>

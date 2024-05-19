@@ -2,17 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductosRepository;
+use App\Repository\ProductoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ProductosRepository::class)]
-class Productos
+#[ORM\Entity(repositoryClass: ProductoRepository::class)]
+class Producto
 {
     /*   ATRIBUTOS */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $ID_prod = null;
+    private ?int $Id_producto = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
@@ -29,19 +29,15 @@ class Productos
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $img = null;
 
-    /*     METODOS      */
+         /*     RELACIONES      */
 
-    public function getIDProd(): ?int
+        /*     METODOS      */
+
+    public function getIdProducto(): ?int
     {
-        return $this->ID_prod;
+        return $this->Id_producto;
     }
 
-    public function setIDProd(?int $ID_prod): static
-    {
-        $this->ID_prod = $ID_prod;
-
-        return $this;
-    }
 
     public function getName(): ?string
     {

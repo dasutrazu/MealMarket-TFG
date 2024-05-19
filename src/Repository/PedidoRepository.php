@@ -2,27 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\Productos;
+use App\Entity\Pedido;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Productos>
- *
- * @method Productos|null find($id, $lockMode = null, $lockVersion = null)
- * @method Productos|null findOneBy(array $criteria, array $orderBy = null)
- * @method Productos[]    findAll()
- * @method Productos[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @extends ServiceEntityRepository<Pedido>
  */
-class ProductosRepository extends ServiceEntityRepository
+class PedidoRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Productos::class);
+        parent::__construct($registry, Pedido::class);
     }
 
     //    /**
-    //     * @return Productos[] Returns an array of Productos objects
+    //     * @return Pedido[] Returns an array of Pedido objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -36,7 +31,7 @@ class ProductosRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Productos
+    //    public function findOneBySomeField($value): ?Pedido
     //    {
     //        return $this->createQueryBuilder('p')
     //            ->andWhere('p.exampleField = :val')

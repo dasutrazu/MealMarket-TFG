@@ -23,7 +23,9 @@ class Opiniones
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $opinion = null;
 
-    /*     METODOS      */
+        /*     RELACIONES      */
+
+        /*     METODOS      */
 
     public function getIdOpinion(): ?int
     {

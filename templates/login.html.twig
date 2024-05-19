@@ -17,7 +17,7 @@
             {% endif %}
 
             {#  cambiar el action  #}
-            <form action="" method="post">
+            <form action="{{ path('login') }}" method="post">
                 <div class="login-wrapper">
                 <label style="font-weight:bolder;">Usuario</label>
                     <input type="text" name="_username" placeholder="Nombre de usuario" value="" required>
@@ -26,7 +26,7 @@
                 <label>Contraseña</label>
                     <input type="password" name="_password" placeholder="Contraseña" required>
                 </div>
-                <button type="submit">Iniciar sesión</button>
+                <input class="send" style="width:100%;" type="submit" value="Enviar">
                 <br> <br>
                 <a href="{{ path('registro') }}"> Crear una nueva cuenta</a>
 

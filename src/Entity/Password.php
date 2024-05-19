@@ -24,8 +24,9 @@ class Password
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $timestamp = null;
   
+        /*     RELACIONES      */
   
-    /*     METODOS      */
+        /*     METODOS      */
 
     public function getIdPw(): ?int
     {

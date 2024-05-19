@@ -20,16 +20,16 @@ use Symfony\Component\Filesystem\Path;
 
 use App\Controller\JsonResponse;
 
-use App\Entity\Productos;
+use App\Entity\Producto;
 
 
-class defaultu extends AbstractController{
+class defaultController extends AbstractController{
 
 
     #[Route('/defaults', name: 'defaults')]
     public function defaults(EntityManagerInterface $entityManager){
 
-        $productos= $entityManager->getRepository(Productos::class)->findAll();
+        $productos= $entityManager->getRepository(Producto::class)->findAll();
         //var_dump($productos);
        return $this-> render('pagPrincipal.html.twig', ['prod' => $productos]);
     }
@@ -38,7 +38,7 @@ class defaultu extends AbstractController{
     #[Route('/mealmarket/{idProduct}', name: 'meal')]
     public function meal(EntityManagerInterface $entityManager, $idProduct, Request $request): Response
     {
-        $productos = $entityManager->getRepository(Productos::class)->find($idProduct);
+        $productos = $entityManager->getRepository(Producto::class)->find($idProduct);
         $opiniones = $entityManager->getRepository(Opiniones::class)->findBy(['id_producto' => $idProduct]);
 
         dump($idProduct);

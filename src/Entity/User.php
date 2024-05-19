@@ -8,31 +8,19 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_ID_USER', fields: ['id_user'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    /*  ATRIBUTOS   */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column(length: 180)]
-    private ?string $id_user = null;
-
-    /**
-     * @var list<string> The user roles
-     */
-    #[ORM\Column]
-    private array $roles = [];
-
-    /**
-     * @var string The hashed password
-     */
-    #[ORM\Column]
-    private ?string $password = null;
+    private ?int $id_user = null;
 
     #[ORM\Column(length: 255)]
     private ?string $nombreusuario = null;
+
+    #[ORM\Column]
+    private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $email = null;
@@ -43,79 +31,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $role = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
+    /* relaciones   */
+
+
+
+    /*  metodos  */
     public function getIdUser(): ?string
     {
         return $this->id_user;
-    }
-
-    public function setIdUser(string $id_user): static
-    {
-        $this->id_user = $id_user;
-
-        return $this;
-    }
-
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUserIdentifier(): string
-    {
-        return (string) $this->id_user;
-    }
-
-    /**
-     * @see UserInterface
-     *
-     * @return list<string>
-     */
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    /**
-     * @param list<string> $roles
-     */
-    public function setRoles(array $roles): static
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials(): void
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 
     public function getNombreusuario(): ?string
@@ -129,6 +53,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    
 
     public function getEmail(): ?string
     {
@@ -165,4 +103,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+
+    
+    //___________    UserInterface methods    _________________________________
+
+    public function getUserIdentifier(): string{
+        return $this->email;
+    }
+    public function eraseCredentials(): void{
+        //$this->password = null;
+    }
+    public function getRoles(): array{
+        /* role 0 for normal user, 1 form admins
+           admins are also users */
+        if($this->role == 0) {
+            return  ["ROLE_USER"];
+        }
+        else if($this->role==1){
+            return  ["ROLE_TEACHER"];
+        }
+        else if($this->role==2){
+            return  ["ROLE_ADMIN"];
+        }
+        
+        else{
+        /* alternative to this: confure role hierarchy in securit.yaml*/
+            return ["ROLE_USER", "ROLE_TEACHER", "ROLE_ADMIN"];
+        }
+    }
 }
+

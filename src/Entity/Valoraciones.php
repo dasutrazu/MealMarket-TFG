@@ -23,6 +23,8 @@ class Valoraciones
     #[ORM\Column]
     private ?int $valoracion = null;
 
+         /*     RELACIONES      */
+
         /*     METODOS      */
         
     public function getIdVal(): ?int
