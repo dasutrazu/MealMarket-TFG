@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Opiniones;
 use Exception;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,8 +38,10 @@ class defaultu extends AbstractController{
     #[Route('/mealmarket/{idProduct}', name: 'meal')]
     public function meal(EntityManagerInterface $entityManager, $idProduct, Request $request): Response
     {
-        
+        $productos = $entityManager->getRepository(Productos::class)->find($idProduct);
+        $opiniones = $entityManager->getRepository(Opiniones::class)->findBy(['id_producto' => $idProduct]);
+
         dump($idProduct);
-        return $this->render("productopag.html.twig");
+        return $this->render("productopag.html.twig", ['producto'=>$productos, 'opniones'=>$opiniones]);
     }
 }
