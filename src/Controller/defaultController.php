@@ -46,6 +46,14 @@ class defaultController extends AbstractController{
         return $this->render("productopag.html.twig", ['producto'=>$productos, 'opiniones'=>$opiniones]);
     }
 
+
+    //configurar para q recoja los valores de barra de busqueda
+    public function busqueda(Request $request, $idProduct,EntityManagerInterface $entityManager){
+        if ($request->isMethod('POST')) {
+            
+        }
+    }
+
    
  
 }

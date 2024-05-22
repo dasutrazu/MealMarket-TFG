@@ -14,7 +14,7 @@
 {# Todos los productos #}
     <div class="container-Productos">
         {% if prod is defined %} {# Si el titulo ocupa + de 1 linea el div se hace más grande #}
-            {% for producto in prod|slice(0, 50)  %}
+            {% for producto in prod|slice(0, 51)  %}
                 <div class="box-Productos">
                     <a href="{{ path('meal', {'idProduct': producto.getId_Producto()}) }}" class="linkproducto">
                     <img class="img-Producto" src="{{ producto.img }}" alt="{{ producto.name }}" />

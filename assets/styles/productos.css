@@ -15,7 +15,7 @@
   /*Evita que el texto se envuelva en una nueva línea.*/
 }
 .box-Productos{
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
     padding: 1.34rem 1.34rem 2rem;
     position: relative;
     display: flex;

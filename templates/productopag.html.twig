@@ -1,64 +1,37 @@
 {% extends 'header.html.twig' %}
 
 {% block body %}
-
-<div style="display: flex; align-items: flex-start; gap: 20px;">
-  <div>
-    <img style="width: 428px; height: 458px;" src="{{ producto.img }}" alt="Imagen del producto" />
-  </div>
-  <div style="flex-grow: 1;">
-    <div style="width: 100%; height: 1px; border: 1px black solid"></div>
-    <div style="width: 100%; color: black; font-size: 16px; font-family: Source Sans Pro; font-weight: 600; line-height: 24px; word-wrap: break-word;">
-      {{ producto.name }}
-    </div>
-    <div style="width: 1px; height: 100%; transform: rotate(90deg); transform-origin: 0 0; border: 1px black solid"></div>
-  </div>
-</div>
-
-{# <div style="margin-top: 20px; padding: 20px;">
-  <h2>Opiniones sobre el producto</h2>
-  
-  <div id="opinions-section">
-    {% for opinion in opiniones %}
-      <div class="opinion">
-        <h3>{{ opinion.id_user }}</h3>
-        <p>{{ opinion.opinion }}</p>
-        <div class="rating">
-          {% for i in 1..opinion.rating %}
-            <span>&#9733;</span>
-          {% endfor %}
-          {% for i in opinion.rating + 1..5 %}
-            <span>&#9734;</span>
-          {% endfor %}
+    <div class="containerBusqueda">
+        <div class="input-wrapper">
+          <div class="icon"> <img src="img\lupa.png" alt="busqueda"/>
+            <div class="icon-inner">  </div>
+          </div>
+          {# Configurar la ruta y el controlador de busqueda habria q mirar lo de AJAX #}
+          
+            {# <form action="{{ path('busqueda', {idProduct: idProduct}) }}" method="post">
+              <input type="text" class="text" placeholder="Escribe un productor para buscar...">
+              <button type="submit">Buscar</button>
+            </form> #}
         </div>
-        <p class="date">{{ opinion.date|date("d/m/Y") }}</p>
-      </div>
-    {% else %}
-      <p>No hay opiniones para este producto.</p>
-    {% endfor %}
-  </div>
 
-  <div id="add-opinion">
-    <h2>Deja tu opinión</h2>
-    <form method="post" action="{{ path('add_opinion', {'idProduct': producto.id}) }}">
-      <label for="user">Nombre:</label>
-      <input type="text" id="user" name="user" required>
-      
-      <label for="comment">Comentario:</label>
-      <textarea id="comment" name="comment" rows="4" required></textarea>
-      
-      <label for="rating">Calificación:</label>
-      <select id="rating" name="rating" required>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-      
-      <button type="submit">Enviar</button>
-    </form>
-  </div>
-</div> #}
+    </div>
 
+    <div class="container-producto">
+        <img class="product-image" src="{{ producto.img }}" alt="Imagen del producto" />
+        <div class="product-name">{{ producto.name }}
+          <p class="precio-Style">{{ producto.price }} €</p>
+        </div>  
+    </div>
+
+  {#   <p>---------------------------------------------</p> #}
+  {# div de las opiniones de los usuarios #}
+     {#  <div class="opiniones"> 
+      <p>Opiniones</p>
+        <div class="opiniones">
+          <form action="/submit" method="post">
+            <label for="opinion">Escriba su opinion sobre el producto:</label>
+            <input type="text" id="opinion" name="opinion" required>
+          </form>
+        </div>
+    </div> #}
 {% endblock %}
