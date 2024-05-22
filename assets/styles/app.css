@@ -34,6 +34,7 @@
     transform: translateX(-50%);
     top: 0; /* Ajusta la posición vertical según sea necesario */
     position: absolute;
+    border-radius: 50px;
 }
 
 
@@ -184,3 +185,4 @@ button:hover {
 }
 
 
+/*  MENU DESPLEGABLE */

@@ -13,15 +13,19 @@
 
 {# Todos los productos #}
     <div class="container-Productos">
-        {% if prod is defined %}
-            {% for producto in prod|slice(0, 4)  %}
+        {% if prod is defined %} {# Si el titulo ocupa + de 1 linea el div se hace más grande #}
+            {% for producto in prod|slice(0, 50)  %}
                 <div class="box-Productos">
-                    <a href="{{ path('meal', {'idProduct': producto.getIdProducto()}) }}" class="linkproducto">
+                    <a href="{{ path('meal', {'idProduct': producto.getId_Producto()}) }}" class="linkproducto">
                     <img class="img-Producto" src="{{ producto.img }}" alt="{{ producto.name }}" />
                     <h2>{{ producto.name }}</h2>
                     <p>Supermercado: {{ producto.supermarket }}</p>
-                    <h4>{{ producto.price }}</h4>
-                    <p>valoracion</p>
+                    <h4>{{ producto.price }} €</h4>
+                    {# AÑADIR AL CARRITO #}
+                    <form action="" method="post">
+                            <input type="hidden" name="id_producto" value="{{ producto.Id_producto }}">
+                            <button type="submit" class="btn btn-primary">Agregar al Carrito</button>
+                        </form>
                     </a>
                 </div>
             {% endfor %}

@@ -1,14 +1,26 @@
 .container-Productos {
   display: flex;
-  width: 100%; 
+  width: 90%; 
+  height: 250px;
   height: auto; 
-  border: 1px solid black;
+  flex-wrap: wrap; 
 }
 .box-Productos {
-  width: 25%; 
+  width: 30%; 
   height: 40%;
-  margin: 5px;
   border: 1px solid black;/* Incluir el borde en el tamaño total */
+  color: black;
+  font-size: 12px;
+  text-align: center;
+  /*Evita que el texto se envuelva en una nueva línea.*/
+}
+.box-Productos{
+  background-color: #fff;
+    padding: 1.34rem 1.34rem 2rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
 }
 .img-Producto{
   width: 30%;
@@ -22,3 +34,7 @@
   text-decoration: none; /* Quita el subrayado del enlace */
   color: inherit;
  }
+ .box-Productos img {
+  max-width: 100%; /* Asegurarse de que la imagen se ajuste al contenedor */
+}
+ 

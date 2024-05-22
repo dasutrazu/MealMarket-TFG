@@ -6,3 +6,8 @@ controllers:
 pag_principal:
     path: /
     controller: App\Controller\defaultController::defaults
+
+buscar_productos:
+    path: /buscar-productos
+    controller: App\Controller\ProductoController::buscarProductos
+    methods: ['GET', 'POST']

@@ -33,7 +33,7 @@ class Producto
 
         /*     METODOS      */
 
-    public function getIdProducto(): ?int
+    public function getId_Producto(): ?int
     {
         return $this->Id_producto;
     }

@@ -23,6 +23,7 @@ use App\Controller\JsonResponse;
 use App\Entity\Producto;
 
 
+
 class defaultController extends AbstractController{
 
 
@@ -42,6 +43,9 @@ class defaultController extends AbstractController{
         $opiniones = $entityManager->getRepository(Opiniones::class)->findBy(['id_producto' => $idProduct]);
 
         dump($idProduct);
-        return $this->render("productopag.html.twig", ['producto'=>$productos, 'opniones'=>$opiniones]);
+        return $this->render("productopag.html.twig", ['producto'=>$productos, 'opiniones'=>$opiniones]);
     }
+
+   
+ 
 }
