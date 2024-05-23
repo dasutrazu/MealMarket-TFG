@@ -5,7 +5,7 @@
 
 {# Ver si el usuario está logueado #}
 <div style="color:black;">{% if app.user %}
-    <p>Bienvenido, {{ app.user.username }}</p>
+    <h1 style="text-align:center;">Bienvenido, {{ app.user.nombreusuario }}</h1>
 {% else %}
     <p>No estás autenticado.</p>
 {% endif %} </div>
@@ -18,15 +18,14 @@
                 <div class="box-Productos">
                     <a href="{{ path('meal', {'idProduct': producto.getId_Producto()}) }}" class="linkproducto">
                     <img class="img-Producto" src="{{ producto.img }}" alt="{{ producto.name }}" />
-                    <h2>{{ producto.name }}</h2>
+                    <p class="TituloProd">{{ producto.name }}</p>
                     <p>Supermercado: {{ producto.supermarket }}</p>
-                    <h4>{{ producto.price }} €</h4>
-                    {# AÑADIR AL CARRITO #}
+                    <h4>{{ producto.price }} €</h4></a>
+                    {# AÑADIR AL CARRITO ----->  Meter path al controlador carrito#}
                     <form action="" method="post">
                             <input type="hidden" name="id_producto" value="{{ producto.Id_producto }}">
-                            <button type="submit" class="btn btn-primary">Agregar al Carrito</button>
+                            <button type="submit" >Agregar al Carrito</button>
                         </form>
-                    </a>
                 </div>
             {% endfor %}
         {% else %}
