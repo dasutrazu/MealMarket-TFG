@@ -1,2 +1,38 @@
 {% extends 'header.html.twig' %}
 
+{% block title %}Carrito de Compras{% endblock %}
+{% block body %}
+<div class="carrito">
+    <h1>Tu Carrito</h1>
+    {% if carritoProductos is empty %}
+        <p>No hay productos en tu carrito.</p>
+    {% else %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for carritoProducto in carritoProductos %}
+                    <tr>
+                        <td><img src="{{ asset('images/uploads/' ~ carritoProducto.producto.img) }}" alt="{{ carritoProducto.producto.name }}"></td>
+                        <td>{{ carritoProducto.producto.name }}</td>
+                        <td>{{ carritoProducto.producto.price }} €</td>
+                        <td>{{ carritoProducto.cantidad }}</td>
+                        <td>{{ carritoProducto.producto.price * carritoProducto.cantidad }} €</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="4">Total</td>
+                    <td>{{ total }} €</td>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+{% endblock %}
