@@ -15,13 +15,13 @@ class CarritoProducto
     #[ORM\Column(type: 'integer')]
     private ?int $id_carritoproducto = null;
 
-    #[ORM\ManyToOne(targetEntity: Carrito::class, inversedBy: 'carritoProductos')]
-    #[ORM\JoinColumn]
+    #[ORM\ManyToOne(targetEntity: Carrito::class)]
+    #[ORM\JoinColumn(name: 'id_carrito', referencedColumnName: 'id_carrito')]
     private ?Carrito $id_carrito = null;
 
     #[ORM\ManyToOne(targetEntity: Producto::class)]
     #[ORM\JoinColumn(name: "id_producto", referencedColumnName: "id_producto")]
-    private ?int $id_producto = null;
+    private ?Producto $id_producto = null;
 
     #[ORM\Column]
     private ?int $cantidad = null;
@@ -61,7 +61,7 @@ class CarritoProducto
         return $this->id_producto;
     }
 
-    public function setIdProducto(int $id_producto): static
+    public function setIdProducto(Producto $id_producto): static
     {
         $this->id_producto = $id_producto;
 

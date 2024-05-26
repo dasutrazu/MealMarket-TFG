@@ -21,7 +21,7 @@ class Carrito
     #[ORM\JoinColumn(name: 'id_user', referencedColumnName: 'id_user')]
     private ?User $id_user = null;
 
-    #[ORM\OneToMany(targetEntity: CarritoProducto::class, mappedBy: 'carritoproducto', cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: CarritoProducto::class, mappedBy: 'carrito', cascade: ['persist', 'remove'])]
     private $carritoProductos;
 
 

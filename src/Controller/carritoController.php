@@ -19,7 +19,8 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use App\Controller\JsonResponse;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use App\Entity\Producto;
 use App\Entity\Carrito;
 use App\Entity\CarritoProducto;
@@ -39,17 +40,18 @@ class carritoController extends AbstractController{
         $carrito = $this->entityManager->getRepository(Carrito::class)->findOneBy(['id_user' => $usuario]);
         
         if (!$carrito) {
-            $carritoProductos = [];
+            $carritoProducto = [];
             $total = 0;
         } else {
-            $carritoProductos = $carrito->getCarritoProductos()->toArray();
-            $total = array_reduce($carritoProductos, function ($sum, $carritoProducto) {
+            $carritoProducto = $carrito->getCarritoProductos()->toArray();
+            $total = array_reduce($carritoProducto, function ($sum, $carritoProducto) {
                 return $sum + $carritoProducto->getProducto()->getPrecio() * $carritoProducto->getCantidad();
             }, 0);
         }
 
         return $this->render('carrito.html.twig', [
-            'carritoProductos' => $carritoProductos,
+            'id_carrito' => $carrito,
+            'carritoProductos' => $carritoProducto,
             'total' => $total,
         ]);
     }
@@ -94,7 +96,7 @@ class carritoController extends AbstractController{
     } */
 
     #[Route('/addProducto/{idProduct}', name: 'addProducto')]
-public function addProducto(int $idProduct): Response
+public function addProducto(int $idProduct)
 {
     $usuario = $this->getUser();
     $carrito = $this->entityManager->getRepository(Carrito::class)->findOneBy(['id_user' => $usuario->getIdUser()]);
@@ -116,8 +118,8 @@ public function addProducto(int $idProduct): Response
 
     if (!$carritoProducto) {
         $carritoProducto = new CarritoProducto();
-        $carritoProducto->setCarrito($carrito);
-        $carritoProducto->setProducto($producto);
+        $carritoProducto->setIdCarrito($carrito);
+        $carritoProducto->setIdProducto($producto);
         $carritoProducto->setCantidad(1);
         $this->entityManager->persist($carritoProducto);
     } else {
@@ -125,18 +127,19 @@ public function addProducto(int $idProduct): Response
     }
 
     $this->entityManager->flush();
-
+    dump($carrito);
+    dump($carritoProducto);
+    
     // Actualizar la lista de productos del carrito y el total
-    $carritoProductos = $carrito->getCarritoProductos()->toArray();
-    $total = array_reduce($carritoProductos, function ($sum, $carritoProducto) {
-        return $sum + $carritoProducto->getProducto()->getPrecio() * $carritoProducto->getCantidad();
-    }, 0);
 
-    return $this->render('carrito.html.twig', [
-        'carritoProductos' => $carritoProductos,
-        'total' => $total,
-    ]);
+    return $this->redirectToRoute('app_carrito');
+   /* return $this->redirectToRoute('carrito.html.twig', [
+        'id_carrito' => $carrito,
+        'carritoProductos' => $carritoProducto
+    ]);*/
 }
 
 
 }
+
+
