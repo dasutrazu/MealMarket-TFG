@@ -17,21 +17,29 @@
     </div>
 
     <div class="container-producto">
-        <img class="product-image" src="{{ producto.img }}" alt="Imagen del producto" />
-        <div class="product-name">{{ producto.name }}
-          <p class="precio-Style">{{ producto.price }} €</p>
-        </div>  
+      <section>
+      <article class="zonaDelProducto">
+          <img class="product-image" src="{{ producto.img }}" alt="Imagen del producto" />
+          <div class="product-name">{{ producto.name }}
+            <p class="precio-Style">{{ producto.price }} €</p>
+          </div>  
+      </article>
+                <section class="sectionOpiniones">
+
+                  <div class="opiniones"> 
+                    <p>Opiniones</p>
+                        <div class="opiniones">
+                          <form action="/submit" method="post">
+                            <label for="opinion">Escriba su opinion sobre el producto:</label>
+                            <input type="text" id="opinion" name="opinion" required>
+                          </form>
+                        </div>
+                  </div>
+                <section>
+      </section>
     </div>
 
   {#   <p>---------------------------------------------</p> #}
   {# div de las opiniones de los usuarios #}
-     {#  <div class="opiniones"> 
-      <p>Opiniones</p>
-        <div class="opiniones">
-          <form action="/submit" method="post">
-            <label for="opinion">Escriba su opinion sobre el producto:</label>
-            <input type="text" id="opinion" name="opinion" required>
-          </form>
-        </div>
-    </div> #}
+     
 {% endblock %}
