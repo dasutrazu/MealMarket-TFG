@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-05-2024 a las 17:46:27
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 27-05-2024 a las 15:21:39
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,6 +24,47 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `carrito`
+--
+
+CREATE TABLE `carrito` (
+  `id_carrito` int(11) NOT NULL,
+  `id_user` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `carrito`
+--
+
+INSERT INTO `carrito` (`id_carrito`, `id_user`) VALUES
+(1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `carrito_producto`
+--
+
+CREATE TABLE `carrito_producto` (
+  `id_carritoproducto` int(11) NOT NULL,
+  `id_carrito` int(11) DEFAULT NULL,
+  `id_producto` int(11) DEFAULT NULL,
+  `cantidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `carrito_producto`
+--
+
+INSERT INTO `carrito_producto` (`id_carritoproducto`, `id_carrito`, `id_producto`, `cantidad`) VALUES
+(1, 1, 2, 31),
+(2, 1, 1, 3),
+(3, 1, 40, 1),
+(4, 1, 5, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `favoritos`
 --
 
@@ -32,6 +73,22 @@ CREATE TABLE `favoritos` (
   `ID_USER` int(11) DEFAULT NULL,
   `ID_PRODUCTO` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `messenger_messages`
+--
+
+CREATE TABLE `messenger_messages` (
+  `id` bigint(20) NOT NULL,
+  `body` longtext NOT NULL,
+  `headers` longtext NOT NULL,
+  `queue_name` varchar(190) NOT NULL,
+  `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `available_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `delivered_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -62,11 +119,11 @@ CREATE TABLE `password` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `productos`
+-- Estructura de tabla para la tabla `producto`
 --
 
-CREATE TABLE `productos` (
-  `ID_PROD` int(11) NOT NULL,
+CREATE TABLE `producto` (
+  `Id_producto` int(11) NOT NULL,
   `Name` varchar(255) DEFAULT NULL,
   `SUPERMARKET` varchar(255) DEFAULT NULL,
   `CATEGORY` varchar(255) NOT NULL,
@@ -75,10 +132,10 @@ CREATE TABLE `productos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `productos`
+-- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `productos` (`ID_PROD`, `Name`, `SUPERMARKET`, `CATEGORY`, `PRICE`, `IMG`) VALUES
+INSERT INTO `producto` (`Id_producto`, `Name`, `SUPERMARKET`, `CATEGORY`, `PRICE`, `IMG`) VALUES
 (1, 'Cuchillos de plástico Bosque Verde reutilizables', 'mercadona.es', 'limpieza_y_hogar|menaje_y_conservacion_de_alimentos', 1.55, 'https://prod-mercadona.imgix.net/images/72df812725f6b9a373cb988320aeef8f.jpg?fit=crop&h=600&w=600'),
 (2, 'Champiñón entero Hacendado', 'mercadona.es', 'conservas_caldos_y_cremas|conservas_de_verdura_y_frutas', 1.10, 'https://prod-mercadona.imgix.net/images/dcd3abae66e2eb748e8c74bc24af6666.jpg?fit=crop&h=600&w=600'),
 (4, 'Champiñón Portobello', 'mercadona.es', 'fruta_y_verdura|verdura', 1.84, 'https://prod-mercadona.imgix.net/images/a5c4f663d14eeee08fbb718a9eb245ad.jpg?fit=crop&h=600&w=600'),
@@ -334,7 +391,7 @@ INSERT INTO `productos` (`ID_PROD`, `Name`, `SUPERMARKET`, `CATEGORY`, `PRICE`, 
 (255, 'EL PASTOR perlas de queso rellenas de frambuesa bandeja 125 gr', 'dia.es', 'frescos|charcuteria_y_quesos|quesos', 2.49, 'https://www.dia.es/product_images/267553/267553_ISO_0_ES.jpg?imwidth=392'),
 (256, 'DIA SUPER PACO suavizante concentrado floral botella 80 lv', 'dia.es', 'cuidado_del_hogar|cuidado_de_la_ropa', 2.15, 'https://www.dia.es/product_images/274017/274017_ISO_0_ES.jpg?imwidth=392'),
 (257, 'DR.OETKER gelatina en laminas sobre 12 laminas', 'dia.es', 'despensa|desayunos_y_dulces|preparacion_de_postres', 2.25, 'https://www.dia.es/product_images/124236/124236_ISO_0_ES.jpg?imwidth=392');
-INSERT INTO `productos` (`ID_PROD`, `Name`, `SUPERMARKET`, `CATEGORY`, `PRICE`, `IMG`) VALUES
+INSERT INTO `producto` (`Id_producto`, `Name`, `SUPERMARKET`, `CATEGORY`, `PRICE`, `IMG`) VALUES
 (258, 'ALBO atún claro en aceite de oliva lata 67 gr', 'dia.es', 'despensa|conservas|conservas_de_pescado', 2.10, 'https://www.dia.es/product_images/189186/189186_ISO_0_ES.jpg?imwidth=392'),
 (259, 'ORO DE GENAVE aceite de oliva virgen extra ecológico botella 500 ml', 'dia.es', 'despensa|aceites_vinagres_y_alinos|aceites', 5.30, 'https://www.dia.es/product_images/280370/280370_ISO_0_ES.jpg?imwidth=392'),
 (260, 'SISMICUS vino tinto joven DO Jumilla botella 75 cl', 'dia.es', 'bodega|vino|tinto', 2.65, 'https://www.dia.es/product_images/267011/267011_ISO_0_ES.jpg?imwidth=392'),
@@ -598,7 +655,7 @@ INSERT INTO `productos` (`ID_PROD`, `Name`, `SUPERMARKET`, `CATEGORY`, `PRICE`, 
 (518, 'SPONTEX guantes desechables talla S caja 20 uds', 'dia.es', 'cuidado_del_hogar|utensilios_de_limpieza', 2.55, 'https://www.dia.es/product_images/235924/235924_ISO_0_ES.jpg?imwidth=392'),
 (519, 'DIA CAPRICHOSO natillas sabor vainilla pack 6 unidades 125 gr', 'dia.es', 'despensa|lacteos_y_huevos|postres', 1.55, 'https://www.dia.es/product_images/129000/129000_ISO_0_ES.jpg?imwidth=392'),
 (520, 'DIA LA LLAMA servilleta 100%  reciclada 2 capas paquete 50 uds', 'dia.es', 'cuidado_del_hogar|papel', 1.69, 'https://www.dia.es/product_images/276695/276695_ISO_0_ES.jpg?imwidth=392');
-INSERT INTO `productos` (`ID_PROD`, `Name`, `SUPERMARKET`, `CATEGORY`, `PRICE`, `IMG`) VALUES
+INSERT INTO `producto` (`Id_producto`, `Name`, `SUPERMARKET`, `CATEGORY`, `PRICE`, `IMG`) VALUES
 (521, 'DIA IMAQE desodorante con extracto de rosa mosqueta roll on 50 ml', 'dia.es', 'cuidado_personal|bano_e_higiene_personal|desodorantes', 0.85, 'https://www.dia.es/product_images/274533/274533_ISO_0_ES.jpg?imwidth=392'),
 (522, 'HERO Diet mermelada de melocotón frasco 280 gr', 'dia.es', 'despensa|desayunos_y_dulces|mermeladas_miel_y_frutas_en_almibar', 2.59, 'https://www.dia.es/product_images/246214/246214_ISO_0_ES.jpg?imwidth=392'),
 (523, 'DR. OETKER coco rallado bolsa 125 gr', 'dia.es', 'despensa|desayunos_y_dulces|preparacion_de_postres', 2.30, 'https://www.dia.es/product_images/227497/227497_ISO_0_ES.jpg?imwidth=392'),
@@ -862,7 +919,7 @@ INSERT INTO `productos` (`ID_PROD`, `Name`, `SUPERMARKET`, `CATEGORY`, `PRICE`, 
 (781, 'DIA FIDIAS yogur al estilo griego con fresa pack 4 unidades 125 gr', 'dia.es', 'despensa|lacteos_y_huevos|yogures', 1.69, 'https://www.dia.es/product_images/115176/115176_ISO_0_ES.jpg?imwidth=392'),
 (782, 'AMSTEL cerveza pack 6 botellas 25 cl', 'dia.es', 'bebidas|cervezas|nacionales', 3.29, 'https://www.dia.es/product_images/185/185_ISO_0_ES.jpg?imwidth=392'),
 (783, 'ORIGINAL REMEDIES champú oliva frasco 250 ml', 'dia.es', 'cuidado_personal|bano_e_higiene_personal|champus', 3.29, 'https://www.dia.es/product_images/206487/206487_ISO_0_ES.jpg?imwidth=392');
-INSERT INTO `productos` (`ID_PROD`, `Name`, `SUPERMARKET`, `CATEGORY`, `PRICE`, `IMG`) VALUES
+INSERT INTO `producto` (`Id_producto`, `Name`, `SUPERMARKET`, `CATEGORY`, `PRICE`, `IMG`) VALUES
 (784, 'WERTHER`S Original caramelos toffees blandos recubiertos bolsa 120 gr', 'dia.es', 'despensa|desayunos_y_dulces|caramelos_chicles_y_golosinas', 2.10, 'https://www.dia.es/product_images/212331/212331_ISO_0_ES.jpg?imwidth=392'),
 (785, 'DOVE desodorante original spray 200 ml', 'dia.es', 'cuidado_personal|bano_e_higiene_personal|desodorantes', 3.69, 'https://www.dia.es/product_images/32842/32842_ISO_0_ES.jpg?imwidth=392'),
 (786, 'OREO galletas mini golden caja 160 gr', 'dia.es', 'despensa|desayunos_y_dulces|galletas', 1.99, 'https://www.dia.es/product_images/273426/273426_ISO_0_ES.jpg?imwidth=392'),
@@ -1125,7 +1182,7 @@ INSERT INTO `productos` (`ID_PROD`, `Name`, `SUPERMARKET`, `CATEGORY`, `PRICE`, 
 (1043, 'PAZO SERANTELLO vino blanco albariño DO Rias Baixas botella 75 cl', 'dia.es', 'bodega|vino|blanco', 6.25, 'https://www.dia.es/product_images/275396/275396_ISO_0_ES.jpg?imwidth=392'),
 (1044, 'GRANJA SAN FRANCISCO miel de flores antigoteo bote 350 gr', 'dia.es', 'despensa|desayunos_y_dulces|mermeladas_miel_y_frutas_en_almibar', 5.55, 'https://www.dia.es/product_images/17255/17255_ISO_0_ES.jpg?imwidth=392'),
 (1045, 'LU PRINCIPE Maxi choc galletas rellenas de crema chocolate pack 3 x 250 gr', 'dia.es', 'despensa|desayunos_y_dulces|galletas', 5.99, 'https://www.dia.es/product_images/189843/189843_ISO_0_ES.jpg?imwidth=392');
-INSERT INTO `productos` (`ID_PROD`, `Name`, `SUPERMARKET`, `CATEGORY`, `PRICE`, `IMG`) VALUES
+INSERT INTO `producto` (`Id_producto`, `Name`, `SUPERMARKET`, `CATEGORY`, `PRICE`, `IMG`) VALUES
 (1046, 'DIA SALSEO salsa césar bote 300 ml', 'dia.es', 'despensa|salsas|mayonesa_y_otras_salsas', 1.29, 'https://www.dia.es/product_images/129425/129425_ISO_0_ES.jpg?imwidth=392'),
 (1047, 'DIA IMAQE gel de ducha zero envase 1 lt', 'dia.es', 'cuidado_personal|bano_e_higiene_personal|geles_de_duchas_y_esponjas', 1.69, 'https://www.dia.es/product_images/273849/273849_ISO_0_ES.jpg?imwidth=392'),
 (1048, 'FONTANEDA galletas digestive finas con chocolate con leche caja 170 gr', 'dia.es', 'despensa|desayunos_y_dulces|galletas', 2.45, 'https://www.dia.es/product_images/258932/258932_ISO_0_ES.jpg?imwidth=392'),
@@ -1184,10 +1241,10 @@ INSERT INTO `productos` (`ID_PROD`, `Name`, `SUPERMARKET`, `CATEGORY`, `PRICE`, 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `users`
+-- Estructura de tabla para la tabla `user`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE `user` (
   `ID_USER` int(11) NOT NULL,
   `NOMBREUSUARIO` varchar(255) DEFAULT NULL,
   `PASSWORD` varchar(255) DEFAULT NULL,
@@ -1195,6 +1252,14 @@ CREATE TABLE `users` (
   `PUNTOS` int(11) DEFAULT NULL,
   `ROLE` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `user`
+--
+
+INSERT INTO `user` (`ID_USER`, `NOMBREUSUARIO`, `PASSWORD`, `EMAIL`, `PUNTOS`, `ROLE`) VALUES
+(1, 'test', '$2y$13$KZK1.a98lhf2NQaEHGlTs.wXU1m1oUqVjG2HMpHEl5XMI7yN9vMxq', 'test@gmail.com', 0, 1),
+(2, 'admin', '$2y$13$P3xOGfmQ1l99PrHVcwcZfu7rZSIjl0c2vIwSo822Enrul.UQFUEDa', 'admin@admin.com', 0, 2);
 
 -- --------------------------------------------------------
 
@@ -1214,12 +1279,36 @@ CREATE TABLE `valoraciones` (
 --
 
 --
+-- Indices de la tabla `carrito`
+--
+ALTER TABLE `carrito`
+  ADD PRIMARY KEY (`id_carrito`),
+  ADD KEY `FK_77E6BED56B3CA4B` (`id_user`);
+
+--
+-- Indices de la tabla `carrito_producto`
+--
+ALTER TABLE `carrito_producto`
+  ADD PRIMARY KEY (`id_carritoproducto`),
+  ADD KEY `IDX_62C02DC2A97B17A5` (`id_carrito`),
+  ADD KEY `IDX_62C02DC2F760EA80` (`id_producto`);
+
+--
 -- Indices de la tabla `favoritos`
 --
 ALTER TABLE `favoritos`
   ADD PRIMARY KEY (`ID_FAVORITOS`),
   ADD KEY `ID_USER` (`ID_USER`),
   ADD KEY `ID_PRODUCTO` (`ID_PRODUCTO`);
+
+--
+-- Indices de la tabla `messenger_messages`
+--
+ALTER TABLE `messenger_messages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_75EA56E0FB7336F0` (`queue_name`),
+  ADD KEY `IDX_75EA56E0E3BD61CE` (`available_at`),
+  ADD KEY `IDX_75EA56E016BA31DB` (`delivered_at`);
 
 --
 -- Indices de la tabla `opiniones`
@@ -1237,16 +1326,16 @@ ALTER TABLE `password`
   ADD KEY `fk_id_user` (`id_user`);
 
 --
--- Indices de la tabla `productos`
+-- Indices de la tabla `producto`
 --
-ALTER TABLE `productos`
-  ADD PRIMARY KEY (`ID_PROD`),
+ALTER TABLE `producto`
+  ADD PRIMARY KEY (`Id_producto`),
   ADD KEY `NOMBRE` (`Name`);
 
 --
--- Indices de la tabla `users`
+-- Indices de la tabla `user`
 --
-ALTER TABLE `users`
+ALTER TABLE `user`
   ADD PRIMARY KEY (`ID_USER`),
   ADD UNIQUE KEY `NOMBREUSUARIO` (`NOMBREUSUARIO`);
 
@@ -1263,10 +1352,28 @@ ALTER TABLE `valoraciones`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `carrito`
+--
+ALTER TABLE `carrito`
+  MODIFY `id_carrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `carrito_producto`
+--
+ALTER TABLE `carrito_producto`
+  MODIFY `id_carritoproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT de la tabla `favoritos`
 --
 ALTER TABLE `favoritos`
   MODIFY `ID_FAVORITOS` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `messenger_messages`
+--
+ALTER TABLE `messenger_messages`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `opiniones`
@@ -1281,16 +1388,16 @@ ALTER TABLE `password`
   MODIFY `id_pw` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `productos`
+-- AUTO_INCREMENT de la tabla `producto`
 --
-ALTER TABLE `productos`
-  MODIFY `ID_PROD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1100;
+ALTER TABLE `producto`
+  MODIFY `Id_producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1100;
 
 --
--- AUTO_INCREMENT de la tabla `users`
+-- AUTO_INCREMENT de la tabla `user`
 --
-ALTER TABLE `users`
-  MODIFY `ID_USER` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `user`
+  MODIFY `ID_USER` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `valoraciones`
@@ -1303,31 +1410,44 @@ ALTER TABLE `valoraciones`
 --
 
 --
+-- Filtros para la tabla `carrito`
+--
+ALTER TABLE `carrito`
+  ADD CONSTRAINT `FK_77E6BED56B3CA4B` FOREIGN KEY (`id_user`) REFERENCES `user` (`ID_USER`);
+
+--
+-- Filtros para la tabla `carrito_producto`
+--
+ALTER TABLE `carrito_producto`
+  ADD CONSTRAINT `FK_62C02DC2A97B17A5` FOREIGN KEY (`id_carrito`) REFERENCES `carrito` (`id_carrito`),
+  ADD CONSTRAINT `FK_62C02DC2F760EA80` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`Id_producto`);
+
+--
 -- Filtros para la tabla `favoritos`
 --
 ALTER TABLE `favoritos`
-  ADD CONSTRAINT `favoritos_ibfk_1` FOREIGN KEY (`ID_USER`) REFERENCES `users` (`ID_USER`),
-  ADD CONSTRAINT `favoritos_ibfk_2` FOREIGN KEY (`ID_PRODUCTO`) REFERENCES `productos` (`ID_PROD`);
+  ADD CONSTRAINT `favoritos_ibfk_1` FOREIGN KEY (`ID_USER`) REFERENCES `user` (`ID_USER`),
+  ADD CONSTRAINT `favoritos_ibfk_2` FOREIGN KEY (`ID_PRODUCTO`) REFERENCES `producto` (`Id_producto`);
 
 --
 -- Filtros para la tabla `opiniones`
 --
 ALTER TABLE `opiniones`
-  ADD CONSTRAINT `opiniones_ibfk_1` FOREIGN KEY (`ID_USER`) REFERENCES `users` (`ID_USER`),
-  ADD CONSTRAINT `opiniones_ibfk_2` FOREIGN KEY (`ID_PRODUCTO`) REFERENCES `productos` (`ID_PROD`);
+  ADD CONSTRAINT `opiniones_ibfk_1` FOREIGN KEY (`ID_USER`) REFERENCES `user` (`ID_USER`),
+  ADD CONSTRAINT `opiniones_ibfk_2` FOREIGN KEY (`ID_PRODUCTO`) REFERENCES `producto` (`Id_producto`);
 
 --
 -- Filtros para la tabla `password`
 --
 ALTER TABLE `password`
-  ADD CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`ID_USER`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`ID_USER`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `valoraciones`
 --
 ALTER TABLE `valoraciones`
-  ADD CONSTRAINT `fk_producto` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`ID_PROD`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_usuario` FOREIGN KEY (`id_user`) REFERENCES `users` (`ID_USER`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_producto` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`Id_producto`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_usuario` FOREIGN KEY (`id_user`) REFERENCES `user` (`ID_USER`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

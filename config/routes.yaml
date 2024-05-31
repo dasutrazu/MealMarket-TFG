@@ -11,3 +11,14 @@ buscar_productos:
     path: /buscar-productos
     controller: App\Controller\ProductoController::buscarProductos
     methods: ['GET', 'POST']
+
+add_producto:
+    path: /addProducto/{idProduct}
+    controller: App\Controller\CarritoController::addProducto
+    requirements:
+        idProduct: \d+
+
+
+app_carrito:
+    path: /carrito
+    controller: App\Controller\CarritoController::index

@@ -12,7 +12,7 @@ class Producto
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $Id_producto = null;
+    private ?int $id_producto = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
@@ -35,7 +35,7 @@ class Producto
 
     public function getId_Producto(): ?int
     {
-        return $this->Id_producto;
+        return $this->id_producto;
     }
 
 

@@ -55,5 +55,10 @@ class defaultController extends AbstractController{
     }
 
    
- 
+
+    #[Route('/carrito', name: 'carrito')]
+    public function carrito()
+    {
+        return $this->render("carrito.html.twig");
+    }
 }

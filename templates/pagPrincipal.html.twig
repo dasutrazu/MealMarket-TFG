@@ -7,7 +7,7 @@
 <div style="color:black;">{% if app.user %}
     <h1 style="text-align:center;">Bienvenido, {{ app.user.nombreusuario }}</h1>
 {% else %}
-    <p>No estás autenticado.</p>
+    <h1 style="text-align:center;">No estás autentificado.</h1>
 {% endif %} </div>
 
 
@@ -22,8 +22,8 @@
                     <p>Supermercado: {{ producto.supermarket }}</p>
                     <h4>{{ producto.price }} €</h4></a>
                     {# AÑADIR AL CARRITO ----->  Meter path al controlador carrito#}
-                    <form action="" method="post">
-                            <input type="hidden" name="id_producto" value="{{ producto.Id_producto }}">
+                    <form action="{{ path('addProducto', {'idProduct': producto.id_producto}) }}" method="post">
+                            <input type="hidden" name="id_producto" value="{{ producto.id_producto }}">
                             <button type="submit" >Agregar al Carrito</button>
                         </form>
                 </div>

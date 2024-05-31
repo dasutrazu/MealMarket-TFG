@@ -12,14 +12,15 @@
         {% endblock %}
     </head>
     <body>
-            <header>
+            
             <div class="container">
                 <div class="gradient"></div>
+
                 <a href="{{path('defaults') }}"><img class="logo" src="img\logo.png"  alt="la imagen no se ha podido cargar"/></a>
                 <img class="banner" src="img\icono.png" alt="La img del user no se ha podido cargar" />
             </div>
-        </header>
-        {% block body %}
+
+        {% block body %} {# BARRA DE BÚSQUEDA  #}
         <div class="containerBusqueda">
             <div class="input-wrapper">
                 <div class="icon"> <img src="img\lupa.png" alt="busqueda"/>
