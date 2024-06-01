@@ -32,6 +32,7 @@
             <p>No se encontraron productos.</p>
         {% endif %}
     </div>
+    <a href="{{ path('carrito', {'idUsuario': app.user.idUser}) }}" class="linkproducto">Ir al Carrito</a>
 
     {% block javascript %}
     <script>

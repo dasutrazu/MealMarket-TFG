@@ -3,9 +3,9 @@
 {% block title %}Carrito de Compras{% endblock %}
 
 {% block body %}
-<div class="carrito">
+{# <div class="carrito">
     <h1>Tu Carrito</h1>
-    {% if carritoProductos is empty %}
+    {% if carritoProducto is empty %}
         <p>No hay productos en tu carrito.</p>
     {% else %}
         <table>
@@ -19,21 +19,26 @@
                 </tr>
             </thead>
             <tbody>
-                {% for carritoProducto in carritoProductos %}
+                {% for carritoProducto in carritoProducto %}
                     <tr>
-                        <td><img src="{{ asset('images/uploads/' ~ carritoProducto.producto.img) }}" alt="{{ carritoProducto.producto.name }}"></td>
-                        <td>{{ carritoProducto.producto.name }}</td>
-                        <td>{{ carritoProducto.producto.price }} €</td>
-                        <td>{{ carritoProducto.cantidad }}</td>
-                        <td>{{ carritoProducto.producto.price * carritoProducto.cantidad }} €</td>
+                        <td><img src="{{ asset('images/uploads/' ~ carritoProducto.getProducto().getImg()) }}" alt="{{ carritoProducto.getProducto().getName() }}"></td>
+                        <td>{{ carritoProducto.getProducto().getName() }}</td>
+                        <td>{{ carritoProducto.getProducto().getPrice() }} €</td>
+                        <td>{{ carritoProducto.getCantidad() }}</td>
+                        <td>{{ carritoProducto.getProducto().getPrice() * carritoProducto.getCantidad() }} €</td>
                     </tr>
                 {% endfor %}
                 <tr>
                     <td colspan="4">Total</td>
-                   
+                    <td>{{ total }} €</td>
                 </tr>
             </tbody>
         </table>
     {% endif %}
-</div>
+</div> #}
+<h1>hellooooo</h1>
+ <div class="carrito">
+    <h2>Tu Carrito</h2>
+    {# <p>{{ carrito.id_carrito }}</p>#}
+ </div>
 {% endblock %}

@@ -1,16 +1,15 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\Opiniones;
 use Exception;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use App\Controller\UserInterface;
 //Para poder usar archivos
@@ -21,9 +20,11 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use App\Controller\JsonResponse;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+//Entidades de la base de datos
 use App\Entity\Producto;
 use App\Entity\Carrito;
 use App\Entity\CarritoProducto;
+use App\Entity\Opiniones;
 
 class carritoController extends AbstractController{
     private $entityManager;
@@ -33,71 +34,41 @@ class carritoController extends AbstractController{
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/carrito', name: 'app_carrito')]
+    #[Route('/carrito/{id_carrito}', name: 'app_carrito')]
     public function index(): Response
     {
-        $usuario = $this->getUser();
-        dump($usuario);
-        $carrito = $this->entityManager->getRepository(Carrito::class)->findOneBy(['id_user' => $usuario]);
-        
-        if (!$carrito) {
-            $carritoProducto = [];
-            $total = 0;
-        } else {
-            $carritoProducto = $carrito->getCarritoProductos()->toArray();
-            $total = array_reduce($carritoProducto, function ($sum, $carritoProducto) {
-                return $sum + $carritoProducto->getProducto()->getPrecio() * $carritoProducto->getCantidad();
-            }, 0);
+        try {
+            $usuario = $this->getUser()->getIdUser();
+            dump($usuario);
+            $carrito = $this->entityManager->getRepository(Carrito::class)->findOneBy(['id_user' => $usuario]);
+            dump($carrito);
+            $carritoProducto = $this->entityManager->getRepository(CarritoProducto::class)->findBy(['id_carrito'=>$carrito]);
+    
+            //      $carritoProductos = []; // Inicializa la variable $carritoProducto aquí
+    
+            /* if ($carrito) {
+                $carritoProductos = $carrito->getCarritoProductos()->toArray();
+                $total = array_reduce($carritoProductos, function ($sum, $carritoProducto) {
+                    return $sum + $carritoProducto->getProducto()->getPrecio() * $carritoProducto->getCantidad();
+                }, 0);
+            } else {
+                $total = 0; // Asegúrate de inicializar $total aunque no haya productos en el carrito
+            } */
+        } catch (Exception $e) {
+            dump($e->getMessage()); // Dump any exception message
+            return $this->render('error.html.twig', ['message' => $e->getMessage()]);
         }
-
+    
         return $this->render('carrito.html.twig', [
-            'id_carrito' => $carrito,
-            'carritoProductos' => $carritoProducto,
-            'total' => $total,
-        ]);
+            'carrito' => $carrito,
+/*             'carritoProducto' => $carritoProducto // Pasa la variable aunque esté vacía
+ */            /* 'total' => $total, */
+        ]); 
     }
-
-
-
-
-   /* #[Route('/addProducto/{idProduct}', name: 'addProducto')]
-    public function addProducto(int $producto_id): Response
-    {
-        $usuario = $this->getUser();
-        $carrito = $this->entityManager->getRepository(Carrito::class)->findOneBy(['id_user' => $usuario]);
-
-        if (!$carrito) {
-            $carrito = new Carrito();
-            $carrito->setUsuario($usuario);
-            $this->entityManager->persist($carrito);
-            $this->entityManager->flush(); // Guardar el carrito primero para obtener su ID
-        }
-
-        $producto = $this->entityManager->getRepository(Producto::class)->find($producto_id);
-
-        if (!$producto) {
-            throw $this->createNotFoundException('Producto no encontrado');
-        }
-
-        $carritoProducto = $this->entityManager->getRepository(CarritoProducto::class)->findOneBy(['carrito' => $carrito, 'producto' => $producto]);
-
-        if (!$carritoProducto) {
-            $carritoProducto = new CarritoProducto();
-            $carritoProducto->setCarrito($carrito);
-            $carritoProducto->setProducto($producto);
-            $carritoProducto->setCantidad(1);
-            $this->entityManager->persist($carritoProducto);
-        } else {
-            $carritoProducto->setCantidad($carritoProducto->getCantidad() + 1);
-        }
-
-        $this->entityManager->flush();
-
-        return $this->redirectToRoute('app_carrito');
-    } */
+    
 
     #[Route('/addProducto/{idProduct}', name: 'addProducto')]
-    public function addProducto(int $idProduct, Request $request): Response
+    public function addProducto(int $idProduct, Request $request)
     {
         try {
             $usuario = $this->getUser()->getIdUser();
@@ -144,7 +115,7 @@ class carritoController extends AbstractController{
                 $this->entityManager->flush(); 
             }
 
-            return $this->redirectToRoute('carrito.html.twig', [
+            return $this->render('carrito.html.twig', [
                 'id_carrito' => $carrito,
                 'carritoProductos' => $carritoProducto
             ]);
@@ -152,50 +123,6 @@ class carritoController extends AbstractController{
             dump($e->getMessage()); // Dump any exception message
             return $this->render('error.html.twig', ['message' => $e->getMessage()]);
         }
-
-
-                /*
-        $usuario = $this->getUser();
-        $carrito = $this->entityManager->getRepository(Carrito::class)->findOneBy(['id_user' => $usuario->getIdUser()]);
-
-         if (!$carrito) {
-            $carrito = new Carrito();
-            $carrito->setIdUser($usuario);
-            $this->entityManager->persist($carrito);
-            $this->entityManager->flush(); // Guardar el carrito primero para obtener su ID
-        }
-
-        $producto = $this->entityManager->getRepository(Producto::class)->find($idProduct);
-
-        if (!$producto) {
-            throw $this->createNotFoundException('Producto no encontrado');
-        }
-
-        $carritoProducto = $this->entityManager->getRepository(CarritoProducto::class)->findOneBy(['id_carrito' => $carrito, 'id_producto' => $producto]);
-
-        if (!$carritoProducto) {
-            $carritoProducto = new CarritoProducto();
-            $carritoProducto->setIdCarrito($carrito);
-            $carritoProducto->setIdProducto($producto);
-            $carritoProducto->setCantidad(1);
-            $this->entityManager->persist($carritoProducto);
-        } else {
-            $carritoProducto->setCantidad($carritoProducto->getCantidad() + 1);
-        }
-
-        $this->entityManager->flush();
-        dump($carrito);
-        dump($carritoProducto); */
-        
-        // Actualizar la lista de productos del carrito y el total
-
-        //return $this->redirectToRoute('app_carrito');
-    /* return $this->redirectToRoute('carrito.html.twig', [
-            'id_carrito' => $carrito,
-            'carritoProductos' => $carritoProducto
-        ]);*/
-
-
     }
 
 

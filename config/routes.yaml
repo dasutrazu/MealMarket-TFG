@@ -1,8 +1,10 @@
+#config/routes.yalm
 controllers:
     resource:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
 pag_principal:
     path: /
     controller: App\Controller\defaultController::defaults
@@ -17,7 +19,6 @@ add_producto:
     controller: App\Controller\CarritoController::addProducto
     requirements:
         idProduct: \d+
-
 
 app_carrito:
     path: /carrito
