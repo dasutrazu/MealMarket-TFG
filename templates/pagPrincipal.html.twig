@@ -25,7 +25,7 @@
                     <form action="{{ path('addProducto', {'idProduct': producto.id_producto}) }}" method="post">
                             <input type="hidden" name="id_producto" value="{{ producto.id_producto }}">
                             <button type="submit" >Agregar al Carrito</button>
-                        </form>
+                    </form>
                 </div>
             {% endfor %}
         {% else %}
