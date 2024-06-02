@@ -35,7 +35,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 
     /* relaciones   */
+    #[ORM\OneToOne(targetEntity: Carrito::class, mappedBy: 'id_user')]
+    private  $carrito;
 
+    public function __construct()
+    {
+        $this->carritos = new ArrayCollection();
+    }
 
 
     /*  metodos  */

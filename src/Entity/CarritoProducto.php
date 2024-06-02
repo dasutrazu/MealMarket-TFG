@@ -25,11 +25,13 @@ class CarritoProducto
 
     #[ORM\Column]
     private ?int $cantidad = null;
-
-    public function getId(): ?int
+    /*  CONSTRUCTOR */
+    public function __construct()
     {
-        return $this->id;
+        $this->carritoProductos = new ArrayCollection();
     }
+
+
     
     // Getters y setters
     public function getIdCarritoproducto(): ?int

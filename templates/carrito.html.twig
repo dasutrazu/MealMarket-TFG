@@ -3,6 +3,7 @@
 {% block title %}Carrito de Compras{% endblock %}
 
 {% block body %}
+ {{ parent() }}
  <div class="carrito">
     <h1>Tu Carrito</h1>
     {% if carritoProductos is empty %}
@@ -21,7 +22,7 @@
             <tbody>
                 {% for carritoProducto in carritoProductos %}
                     <tr>
-                        <td><img src="{{ asset('images/uploads/' ~ carritoProducto.idProducto.img) }}" alt=""></td>
+                        <td><img class="img-Producto" src="{{ carritoProducto.idProducto.img }}" alt=""></td>
                         <td>{{ carritoProducto.idProducto.name }}</td>
                         <td>{{ carritoProducto.idProducto.price }} €</td>
                         <td>{{ carritoProducto.cantidad}}</td>
@@ -29,28 +30,15 @@
                     </tr>
                 {% endfor %}
                 <tr>
-                    <td colspan="4">Total</td>
-                    <td>{#{ total }#} €</td>
+                    <td colspan="4"><h2>Total</h2></td>
+                    <td><h2>{{ total }} €</h2></td>
                 </tr>
             </tbody>
         </table>
     {% endif %}
 </div> 
 <hr>
+<button onclick="">Realizar Compra</button>
 <hr>
 
-<h1>hellooooo</h1>
- <div class="carrito">
-    <h2>Tu Carrito</h2>
-      <p>{{ carrito.getIdCarrito() }}</p>
-    <ul>
-        {% for carritoProducto in carritoProductos %}
-            <li>
-                Producto: {{ carritoProducto.idProducto.name }}<br>
-                Precio: {{ carritoProducto.idProducto.price }}<br>
-                Cantidad: {{ carritoProducto.cantidad }}
-            </li>
-        {% endfor %}
-    </ul>
- </div>
 {% endblock %}
