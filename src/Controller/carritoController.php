@@ -35,7 +35,7 @@ class carritoController extends AbstractController{
     }
 
     #[Route('/carrito/{id_carrito}', name: 'app_carrito')]
-    public function index(): Response
+    public function index($id_carrito): Response
     {
         try {
             $usuario = $this->getUser()->getIdUser();
@@ -61,8 +61,8 @@ class carritoController extends AbstractController{
     
         return $this->render('carrito.html.twig', [
             'carrito' => $carrito,
-/*             'carritoProducto' => $carritoProducto // Pasa la variable aunque esté vacía
- */            /* 'total' => $total, */
+            'carritoProductos' => $carritoProducto // Pasa la variable aunque esté vacía
+           
         ]); 
     }
     
@@ -99,8 +99,8 @@ class carritoController extends AbstractController{
                     'id_carrito' => $carrito, 
                     'id_producto' => $producto
                 ]);
-
-                dump($carritoProducto); // Check if this dump statement is executed
+                //dd($carritoProducto);
+              
 
                 if (!$carritoProducto) {
                     $carritoProducto = new CarritoProducto();
@@ -108,8 +108,10 @@ class carritoController extends AbstractController{
                     $carritoProducto->setIdProducto($producto);
                     $carritoProducto->setCantidad(1);
                     $this->entityManager->persist($carritoProducto);
+                    dump($carritoProducto); // Check if this dump statement is executed
                 } else {
                     $carritoProducto->setCantidad($carritoProducto->getCantidad() + 1);
+                    dump($carritoProducto); // Check if this dump statement is executed
                 }
 
                 $this->entityManager->flush(); 

@@ -21,13 +21,10 @@ class Carrito
     #[ORM\JoinColumn(name: 'id_user', referencedColumnName: 'id_user')]
     private ?User $id_user = null;
 
-    #[ORM\OneToMany(targetEntity: CarritoProducto::class, mappedBy: 'carrito', cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: CarritoProducto::class, mappedBy: 'carrito'/*, cascade: ['persist', 'remove']*/)]
     private $carritoProductos;
 
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(name: 'id_user', referencedColumnName: 'id_user')]
-    private ?User  $user = null;
 
     //CONSTRUCTOR TABLA ALTERNA
     public function __construct()
@@ -48,14 +45,14 @@ class Carrito
         return $this;
     }
 
-    public function getIdUser(): ?int
+    public function getIdUser(): ?User
     {
         return $this->id_user;
     }
 
-    public function setIdUser(?int $user): self
+    public function setIdUser(?User $id_user): self
     {
-        $this->id_user = $user;
+        $this->id_user = $id_user;
 
         return $this;
     }

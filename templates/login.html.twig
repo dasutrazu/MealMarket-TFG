@@ -1,16 +1,8 @@
 {% extends 'header.html.twig' %} {# aporta el css#}
 
     {% block body %}
-{#  
-    <header>
-        <div class="container">
-            <div class="gradient"></div>
-            <img class="logo" src="img\logo.png"  alt="la imagen no se ha podido cargar"/>
-            <img class="banner" src="img\icono.png" alt="La img del user no se ha podido cargar" />
-        </div>
-    </header> 
-#}
-    <div class="login-container">
+
+    <div style="margin-top:25 px;"  class="login-container">
             <h2>Iniciar sesión</h2>
            {#  {% if error %}
                 <div class="error">{{ error.messageKey|trans(error.messageData, 'security') }}</div>

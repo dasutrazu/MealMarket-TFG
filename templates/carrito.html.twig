@@ -3,9 +3,9 @@
 {% block title %}Carrito de Compras{% endblock %}
 
 {% block body %}
-{# <div class="carrito">
+ <div class="carrito">
     <h1>Tu Carrito</h1>
-    {% if carritoProducto is empty %}
+    {% if carritoProductos is empty %}
         <p>No hay productos en tu carrito.</p>
     {% else %}
         <table>
@@ -19,26 +19,38 @@
                 </tr>
             </thead>
             <tbody>
-                {% for carritoProducto in carritoProducto %}
+                {% for carritoProducto in carritoProductos %}
                     <tr>
-                        <td><img src="{{ asset('images/uploads/' ~ carritoProducto.getProducto().getImg()) }}" alt="{{ carritoProducto.getProducto().getName() }}"></td>
-                        <td>{{ carritoProducto.getProducto().getName() }}</td>
-                        <td>{{ carritoProducto.getProducto().getPrice() }} €</td>
-                        <td>{{ carritoProducto.getCantidad() }}</td>
-                        <td>{{ carritoProducto.getProducto().getPrice() * carritoProducto.getCantidad() }} €</td>
+                        <td><img src="{{ asset('images/uploads/' ~ carritoProducto.idProducto.img) }}" alt=""></td>
+                        <td>{{ carritoProducto.idProducto.name }}</td>
+                        <td>{{ carritoProducto.idProducto.price }} €</td>
+                        <td>{{ carritoProducto.cantidad}}</td>
+                        <td>{{ carritoProducto.idProducto.price * carritoProducto.cantidad }} €</td>
                     </tr>
                 {% endfor %}
                 <tr>
                     <td colspan="4">Total</td>
-                    <td>{{ total }} €</td>
+                    <td>{#{ total }#} €</td>
                 </tr>
             </tbody>
         </table>
     {% endif %}
-</div> #}
+</div> 
+<hr>
+<hr>
+
 <h1>hellooooo</h1>
  <div class="carrito">
     <h2>Tu Carrito</h2>
-    {# <p>{{ carrito.id_carrito }}</p>#}
+      <p>{{ carrito.getIdCarrito() }}</p>
+    <ul>
+        {% for carritoProducto in carritoProductos %}
+            <li>
+                Producto: {{ carritoProducto.idProducto.name }}<br>
+                Precio: {{ carritoProducto.idProducto.price }}<br>
+                Cantidad: {{ carritoProducto.cantidad }}
+            </li>
+        {% endfor %}
+    </ul>
  </div>
 {% endblock %}

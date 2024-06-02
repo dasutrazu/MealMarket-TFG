@@ -5,9 +5,11 @@ controllers:
         namespace: App\Controller
     type: attribute
 
+
 pag_principal:
     path: /
     controller: App\Controller\defaultController::defaults
+
 
 buscar_productos:
     path: /buscar-productos
@@ -21,5 +23,5 @@ add_producto:
         idProduct: \d+
 
 app_carrito:
-    path: /carrito
-    controller: App\Controller\CarritoController::index
+    path: /carrito/{id_carrito}
+    controller: App\Controller\carritoController::index

@@ -11,16 +11,34 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body>
+    <nav>
             
             <div class="container">
-                <div class="gradient"></div>
+                <div class="gradient"> 
+                 {% if app.user %}
+                        <div>  <b>User</b>: {{ app.user.email }} 
+                            <a href="{{ path('defaults') }}">Home</a> 
+                            <a href="{{ path('logout') }}">Cerrar sesión</a>
+                        {% if carrito is defined %}  
+                            <a href="{{ path('app_carrito', {'id_carrito': carrito.idCarrito}) }}" class="linkproducto">Ir al Carrito</a>
+                                {% endif %}  
+                        </div>
+                {% else %}
+                        <div>  
+                            <b>User</b>: No estas logueado 
+                            <a href="{{ path('defaults') }}">Home</a> 
+                            <a href="{{ path('login') }}">Login</a>
+                        </div>  
+                {% endif %}
+                            
 
-                <a href="{{path('defaults') }}"><img class="logo" src="img\logo.png"  alt="la imagen no se ha podido cargar"/></a>
-                <img class="banner" src="img\icono.png" alt="La img del user no se ha podido cargar" />
+                    <a href="{{path('defaults') }}"><img class="logo" src="img\logo.png"  alt="la imagen no se ha podido cargar"/></a>
+                    <img class="banner" src="img\icono.png" alt="La img del user no se ha podido cargar" />
+                </div>
             </div>
-
+    </nav>
         {% block body %} {# BARRA DE BÚSQUEDA  #}
+        <body>
         <div class="containerBusqueda">
             <div class="input-wrapper">
                 <div class="icon"> <img src="img\lupa.png" alt="busqueda"/>

@@ -21,7 +21,8 @@ use Symfony\Component\Filesystem\Path;
 use App\Controller\JsonResponse;
 
 use App\Entity\Producto;
-
+use App\Entity\Carrito;
+use App\Entity\CarritoProducto;
 
 
 class defaultController extends AbstractController{
@@ -30,9 +31,38 @@ class defaultController extends AbstractController{
     #[Route('/defaults', name: 'defaults')]
     public function defaults(EntityManagerInterface $entityManager){
 
+        
         $productos= $entityManager->getRepository(Producto::class)->findAll();
-        //var_dump($productos);
-       return $this-> render('pagPrincipal.html.twig', ['prod' => $productos]);
+       
+
+        // Si el usuario está autenticado, intentamos obtener su carrito
+        if ($this->getUser()) {
+            $user = $this->getUser();
+            $carrito = $entityManager->getRepository(Carrito::class)->findOneBy(['id_user' => $user]);
+
+            // Si no se encontró carrito para el usuario, se crea uno nuevo
+            if (!$carrito) {
+                $carrito = new Carrito();
+                $carrito->setIdUser($user); // Asignar el usuario al carrito
+                $entityManager->persist($carrito);
+                $entityManager->flush();
+            }
+
+            // Obtener los productos del carrito si existe
+            $carritoProductos = $entityManager->getRepository(CarritoProducto::class)->findBy(['id_carrito' => $carrito]);
+
+            return $this->render('pagPrincipal.html.twig', [
+                'prod' => $productos,
+                'carrito' => $carrito,
+                'carritoProductos' => $carritoProductos,
+            ]);
+        }
+
+        // Si no está autenticado, simplemente mostramos todos los productos
+        return $this->render('pagPrincipal.html.twig', [
+            'prod' => $productos,
+        ]);
+       
     }
 
 
