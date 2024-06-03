@@ -25,6 +25,7 @@ class CarritoProducto
 
     #[ORM\Column]
     private ?int $cantidad = null;
+    
     /*  CONSTRUCTOR */
     public function __construct()
     {

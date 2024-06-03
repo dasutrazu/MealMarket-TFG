@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\Pedidodetalle;
+use App\Entity\Pedidoproducto;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Pedidodetalle>
+ * @extends ServiceEntityRepository<Pedidoproducto>
  */
-class PedidodetalleRepository extends ServiceEntityRepository
+class PedidoproductoRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Pedidodetalle::class);
+        parent::__construct($registry, Pedidoproducto::class);
     }
 
     //    /**
-    //     * @return Pedidodetalle[] Returns an array of Pedidodetalle objects
+    //     * @return Pedidoproducto[] Returns an array of Pedidoproducto objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class PedidodetalleRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Pedidodetalle
+    //    public function findOneBySomeField($value): ?Pedidoproducto
     //    {
     //        return $this->createQueryBuilder('p')
     //            ->andWhere('p.exampleField = :val')
