@@ -127,7 +127,38 @@ class carritoController extends AbstractController{
             return $this->render('error.html.twig', ['message' => $e->getMessage()]);
         }
     }
+    #[Route("/carrito_actualizar", name:'carrito_actualizar')]
+    public function carrito_actualizar(Request $request, CarritoProducto $carritoProducto, EntityManagerInterface $entityManager): Response{
+        try {
+            $accion = $request->request->get('accion');
 
+            switch ($accion) {
+                case 'añadir':
+                    $carritoProducto->setCantidad($carritoProducto->getCantidad() + 1);
+                    break;
+    
+                case 'quitar':
+                    if ($carritoProducto->getCantidad() > 1) {
+                        $carritoProducto->setCantidad($carritoProducto->getCantidad() - 1);
+                    } else {
+                        $entityManager->remove($carritoProducto);
+                    }
+                    break;
+    
+                case 'eliminar':
+                    $entityManager->remove($carritoProducto);
+                    break;
+    
+                default:
+                    throw new Exception('Acción no válida');
+            }
+    
+            $entityManager->flush();
+    
+        }catch(Exception ){}
+        return $this->redirectToRoute('carrito');
+
+    }
 
     //Testear todo y aun hay que crear PEDIDO y PEDIDOPRODUCTO
     public function crearPedido(Request $request): Response

@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Entity\Opiniones;
 use Exception;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +20,8 @@ use Symfony\Component\Filesystem\Path;
 use App\Controller\JsonResponse;
 
 use App\Entity\Producto;
+use App\Entity\Opiniones;
+use App\Entity\Valoraciones;
 use App\Entity\Carrito;
 use App\Entity\CarritoProducto;
 
@@ -92,5 +93,53 @@ class defaultController extends AbstractController{
         return $this->render("carrito.html.twig");
     }
 
+    #[Route('/opiniones', name: 'opiniones')]
+    function opiniones(Request $request, $userId, $idProduct,EntityManagerInterface $entityManager ): ?Opiniones{
+        if ($request->isMethod('POST')) {
+            try {
+                $idProd = $idProduct;
+                $Userid = $userId;
+                $opinion= $request->request->get("opinion");
+    
+                $new = new Opiniones();
+                //$new->setIdOpinion($idProd);
+                $new->setIdUser($Userid);
+                $new->setIdProducto($idProd);
+                $new->setOpinion($opinion);
+                
+    
+                $entityManager->persist($new);
+                $entityManager->flush();
+    
+            } catch (Exception $e) {
+                dump($e->getMessage());
+
+            }
+        }
+        return null;
+    }
+    #[Route('/valoraciones', name: 'valoraciones')]
+    function valoraciones(Request $request, $userId, $idProduct,EntityManagerInterface $entityManager ): ?Valoraciones{
+        if ($request->isMethod('POST')) {
+            try {
+                $idProd = $idProduct;
+                $Userid = $userId;
+                $valoracion= $request->request->get("valoracion");
+    
+                $new = new Valoraciones();
+                //$new->setIdOpinion($idProd);
+                $new->setIdUser($Userid);
+                $new->setIdProducto($idProd);
+                $new->setValoracion($valoracion);
+                
+    
+                $entityManager->persist($new);
+                $entityManager->flush();
+            } catch (Exception $e) {
+                
+                dump($e->getMessage());
+            }
+        }
+    }
     
 }

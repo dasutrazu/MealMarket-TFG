@@ -25,7 +25,15 @@
                         <td><img class="img-Producto" src="{{ carritoProducto.idProducto.img }}" alt=""></td>
                         <td>{{ carritoProducto.idProducto.name }}</td>
                         <td>{{ carritoProducto.idProducto.price }} €</td>
-                        <td>{{ carritoProducto.cantidad}}</td>
+                        <td>
+                            <form action="{{ path('carrito_actualizar', { 'id': carritoProducto.idProducto }) }}" method="post" style="display: flex; align-items: center;">
+                                <input type="hidden" name="_method" value="PUT">
+                                <button type="submit" name="accion" value="quitar">-</button>
+                                <span>{{ carritoProducto.cantidad }}</span>
+                                <button type="submit" name="accion" value="añadir">+</button>
+                                <button type="submit" name="accion" value="eliminar">Eliminar</button>
+                            </form>
+                        </td>
                         <td>{{ carritoProducto.idProducto.price * carritoProducto.cantidad }} €</td>
                     </tr>
                 {% endfor %}
