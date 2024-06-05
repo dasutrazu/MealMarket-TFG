@@ -33,9 +33,76 @@ class carritoController extends AbstractController{
     {
         $this->entityManager = $entityManager;
     }
-
     #[Route('/carrito/{id_carrito}', name: 'app_carrito')]
-    public function index($id_carrito): Response
+    public function index($id_carrito, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $usuario = $this->getUser()->getIdUser();
+        $carrito = $entityManager->getRepository(Carrito::class)->findOneBy(['id_user' => $usuario]);
+        
+        if (!$carrito) {
+            throw $this->createNotFoundException('Carrito no encontrado.');
+        }
+
+        // Obtener el ID del producto del carrito a actualizar
+        //$carritoProductoId = $request->request->get('carritoProductoId');
+        /* if ($carrito) {
+            // Obtener la acción a realizar
+            $accion = $request->request->get('accion');
+            
+            // Obtener el producto del carrito
+            $carritoProducto = $entityManager->getRepository(CarritoProducto::class)->find($carrito);
+            
+            if ($carritoProducto && $carritoProducto->getIdCarrito()->getIdCarrito() === $carrito->getIdCarrito()) {
+                try {
+                    switch ($accion) {
+                        case 'añadir':
+                            $carritoProducto->setCantidad($carritoProducto->getCantidad() + 1);
+                            break;
+
+                        case 'quitar':
+                            if ($carritoProducto->getCantidad() > 1) {
+                                $carritoProducto->setCantidad($carritoProducto->getCantidad() - 1);
+                            } else {
+                                $entityManager->remove($carritoProducto);
+                            }
+                            break;
+
+                        case 'eliminar':
+                            $entityManager->remove($carritoProducto);
+                            break;
+
+                        default:
+                            throw new Exception('Acción no válida');
+                    }
+
+                    $entityManager->flush();
+
+                } catch (Exception $e) {
+                    // Manejo de excepciones (opcional: agregar un mensaje de error)
+                }
+            }
+        } */
+
+        // Obtener los productos del carrito
+        $carritoProductos = $entityManager->getRepository(CarritoProducto::class)->findBy(['id_carrito' => $carrito]);
+
+        // Calcular el total
+        $total = 0;
+        if ($carritoProductos) {
+            $total = array_reduce($carritoProductos, function ($sum, $carritoProducto) {
+                return $sum + $carritoProducto->getIdProducto()->getPrice() * $carritoProducto->getCantidad();
+            }, 0);
+        }
+
+        return $this->render('carrito.html.twig', [
+            'carrito' => $carrito,
+            'carritoProductos' => $carritoProductos,
+            'total' => $total
+        ]);
+    }
+
+    /* 
+    public function index($id_carrito, EntityManagerInterface $entityManager, Request $request): Response
     {
         
             $usuario = $this->getUser()->getIdUser();
@@ -58,6 +125,7 @@ class carritoController extends AbstractController{
                     }, 0);
                 }
             } 
+
         
 
         return $this->render('carrito.html.twig', [
@@ -65,7 +133,7 @@ class carritoController extends AbstractController{
             'carritoProductos' => $carritoProducto, // Pasa la variable aunque esté vacía
            'total'=> $total
         ]); 
-    }
+    } */
     
 
     #[Route('/addProducto/{idProduct}', name: 'addProducto')]

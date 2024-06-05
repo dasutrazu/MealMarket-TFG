@@ -26,7 +26,7 @@
                         <td>{{ carritoProducto.idProducto.name }}</td>
                         <td>{{ carritoProducto.idProducto.price }} €</td>
                         <td>
-                            <form action="{{ path('carrito_actualizar', { 'id': carritoProducto.idProducto }) }}" method="post" style="display: flex; align-items: center;">
+                            <form action="{{ path('carrito', { 'id': carritoProducto.idProducto }) }}" method="post" style="display: flex; align-items: center;">
                                 <input type="hidden" name="_method" value="PUT">
                                 <button type="submit" name="accion" value="quitar">-</button>
                                 <span>{{ carritoProducto.cantidad }}</span>
