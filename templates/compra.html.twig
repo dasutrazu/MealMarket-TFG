@@ -1,0 +1,22 @@
+{% extends 'header.html.twig' %}
+
+{% block title %}Resumen del Pedido{% endblock %}
+
+{% block body %}
+    <h1>Resumen del Pedido</h1>
+
+    <h2>Pedido #{{ pedido.idPedido }}</h2>
+    <p><strong>Fecha:</strong> {{ pedido.fecha|date('d-m-Y H:i') }}</p>
+    <p><strong>Total:</strong> {{ pedido.total|number_format(2) }} €</p>
+
+    <h3>Productos</h3>
+    <ul>
+        {% for pedidoProducto in pedidoProductos %}
+            <li>
+                {{ pedidoProducto.idProducto.name }} - Cantidad: {{ pedidoProducto.cantidad }} - Precio: {{ pedidoProducto.idProducto.price|number_format(2) }} €
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('app_carrito', {'id_carrito': pedido.idUser.getIdUser()}) }}">Volver al Carrito</a>
+{% endblock %}
