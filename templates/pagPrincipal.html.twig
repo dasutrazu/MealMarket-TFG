@@ -1,30 +1,40 @@
 {% extends 'header.html.twig' %}
 
 {% block body %}
-    {{ parent() }} {# Esto incluirá el contenido del bloque body de header.html.twig #}
+    {{ parent() }}
 
-{# Ver si el usuario está logueado #}
-<div style="color:black;">{% if app.user %}
-    <h1 style="text-align:center;">Bienvenido, {{ app.user.nombreusuario }}</h1>
-{% else %}
-    <h1 style="text-align:center;">No estás autentificado.</h1>
-{% endif %} </div>
+    {# Ver si el usuario está logueado #}
+    <div style="color:black;">
+        {% if app.user %}
+            <h1 style="text-align:center;">Bienvenido, {{ app.user.nombreusuario }}</h1>
+        {% else %}
+            <h1 style="text-align:center;">No estás autentificado.</h1>
+        {% endif %}
+    </div>
 
+    {# Campo de búsqueda con botón #}
+   <div style="text-align:center; margin-bottom: 20px; display: flex; justify-content: center; align-items: center;">
+        <input type="text" id="search" placeholder="Buscar productos..." style="width: 50%; padding: 10px;">
+        <button id="searchButton" class="searchButton">Buscar</button>
+    </div>
 
-{# Todos los productos #}
-    <div class="container-Productos">
-        {% if prod is defined %} {# Si el titulo ocupa + de 1 linea el div se hace más grande #}
-            {% for producto in prod|slice(0, 51)  %}
+    {# Contenedor para resultados de búsqueda y todos los productos #}
+    <div id="results" class="container-Productos"></div>
+
+    {# Todos los productos #}
+    <div class="container-Productos" id="product-list">
+        {% if prod is defined %}
+            {% for producto in prod|slice(0, 51) %}
                 <div class="box-Productos">
                     <a href="{{ path('meal', {'idProduct': producto.getId_Producto()}) }}" class="linkproducto">
-                    <img class="img-Producto" src="{{ producto.img }}" alt="{{ producto.name }}" />
-                    <p class="TituloProd">{{ producto.name }}</p>
-                    <p>Supermercado: {{ producto.supermarket }}</p>
-                    <h4>{{ producto.price }} €</h4></a>
-                    {# AÑADIR AL CARRITO ----->  Meter path al controlador carrito#}
+                        <img class="img-Producto" src="{{ producto.img }}" alt="{{ producto.name }}" />
+                        <p class="TituloProd">{{ producto.name }}</p>
+                        <p>Supermercado: {{ producto.supermarket }}</p>
+                        <h4>{{ producto.price }} €</h4>
+                    </a>
                     <form action="{{ path('addProducto', {'idProduct': producto.id_producto}) }}" method="post">
-                            <input type="hidden" name="id_producto" value="{{ producto.id_producto }}">
-                            <button type="submit" >Agregar al Carrito</button>
+                        <input type="hidden" name="id_producto" value="{{ producto.id_producto }}">
+                        <button type="submit">Agregar al Carrito</button>
                     </form>
                 </div>
             {% endfor %}
@@ -32,27 +42,70 @@
             <p>No se encontraron productos.</p>
         {% endif %}
     </div>
-    
+
+    <footer> 
+        Síguenos en redes sociales: <br> <a href="https://www.instagram.com/meal_market/" target="_blank"> <img src="img\IG.png" alt="IG_logo"> </a>
+    </footer>
 
     {% block javascript %}
     <script>
-        function crearSalto(height) {
-            console.log("Creando salto de línea...");
-            var ele = document.createElement('div'); // crear nodo
-            ele.style.clear = 'left'; // css posicionamiento
-            return ele; // Devolver el elemento creado
+      document.addEventListener("DOMContentLoaded", function() {
+    console.log("DOMContentLoaded evento disparado...");
+    var searchButton = document.getElementById('searchButton');  // Botón de búsqueda
+    var searchInput = document.getElementById('search');  // Campo de entrada de búsqueda
+    var resultsDiv = document.getElementById('results');  // Div para mostrar resultados
+    var productListDiv = document.getElementById('product-list');  // Div que contiene todos los productos
+
+    // Evento clic del botón de búsqueda
+    searchButton.addEventListener('click', function() {
+        var query = searchInput.value;
+        if (query.length < 3) {
+            resultsDiv.innerHTML = '';  // Limpia los resultados si la query es menor de 3 caracteres
+            productListDiv.style.display = 'block';  // Muestra todos los productos
+            return;
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            console.log("DOMContentLoaded evento disparado...");
-            var productos = document.querySelectorAll('.box-Productos');
-            for (var i = 0; i < productos.length; i++) {
-                if ((i + 1) % 5 === 0 && i !== productos.length - 1) {
-                    var br = crearSalto(20); // Crear un salto de línea
-                    productos[i].parentNode.insertBefore(br, productos[i].nextSibling);
-                }
+        // Realiza una solicitud GET para buscar productos
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '{{ path("buscarProducto") }}?q=' + encodeURIComponent(query), true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var data = JSON.parse(xhr.responseText);
+                resultsDiv.innerHTML = '';
+                productListDiv.style.display = 'none';  // Oculta la lista de todos los productos
+
+                data.forEach(function (product) {
+                    var mealUrl = '{{ path('meal', {'idProduct': 'ID'}) }}'.replace('ID', product.id);
+                    var addProductoUrl = '{{ path('addProducto', {'idProduct': 'ID'}) }}'.replace('ID', product.id);
+                    
+                    var div = document.createElement('div');
+                    div.className = 'box-Productos';
+                    div.innerHTML = `
+                        <a href="${mealUrl}" class="linkproducto">
+                            <img class="img-Producto" src="${product.img}" alt="${product.name}" />
+                            <p class="TituloProd">${product.name}</p>
+                            <p>Supermercado: ${product.supermarket}</p>
+                            <h4>${product.price} €</h4>
+                        </a>
+                        <form action="${addProductoUrl}" method="post">
+                            <input type="hidden" name="id_producto" value="${product.id}">
+                            <button type="submit">Agregar al Carrito</button>
+                        </form>
+                    `;
+                    resultsDiv.appendChild(div);
+                });
             }
-        });
+        };
+        xhr.send();
+    });
+});
+
+        function crearSalto(height) {
+            console.log("Creando salto de línea...");
+            var ele = document.createElement('div');
+            ele.style.clear = 'left';
+            return ele;
+        }
     </script>
     {% endblock %}
 {% endblock %}

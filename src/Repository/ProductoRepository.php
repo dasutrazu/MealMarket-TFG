@@ -21,6 +21,25 @@ class ProductoRepository extends ServiceEntityRepository
         parent::__construct($registry, Producto::class);
     }
 
+
+    /*public function findByNameLike(string $query)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.name LIKE :query')
+            ->setParameter('query', '%' . $query . '%')
+            ->getQuery()
+            ->getResult();
+    }
+*/
+
+public function findByName(string $name): array
+{
+    return $this->createQueryBuilder('p')
+        ->andWhere('p.name LIKE :name')
+        ->setParameter('name', '%' . $name . '%')
+        ->getQuery()
+        ->getResult();
+}
     //    /**
     //     * @return Producto[] Returns an array of Producto objects
     //     */

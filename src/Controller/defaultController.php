@@ -144,5 +144,49 @@ class defaultController extends AbstractController{
             }
         }
     }
-    
+
+
+
+
+    /*    Prueba metodo para buscar    
+    #[Route('/buscarProducto', name: 'buscarProducto')]
+    public function search(Request $request): JsonResponse
+    {
+        $query = $request->query->get('q', '');
+        
+        if (empty($query)) {
+            return new JsonResponse([]);
+        }
+
+        $products = $this->productRepository->findByNameLike($query);
+
+        $data = [];
+        foreach ($products as $product) {
+            $data[] = [
+                'id' => $product->getId(),
+                'name' => $product->getName(),
+                'price' => $product->getPrice(),
+                'img' => $product->getImg(),  // Asumiendo que tienes una propiedad 'img'
+                'supermarket' => $product->getSupermarket(),  // Asumiendo que tienes una propiedad 'supermarket'
+                // Agrega otros campos necesarios
+            ];
+        }
+
+        return new JsonResponse($data);
+    }
+     */
+
+
+     public function search(Request $request, ProductRepository $productRepository): JsonResponse
+     {
+         $query = $request->query->get('q', '');
+ 
+         if (strlen($query) < 3) {
+             return new JsonResponse([]);
+         }
+ 
+         $productos = $productRepository->findByName($query);
+ 
+         return new JsonResponse($productos);
+     }
 }

@@ -201,3 +201,27 @@ button:hover {
   /*margin-top: 150px;*/
   color: black;
 }
+
+footer {
+  color: black;
+  font-weight: bold;
+  font-size: 1em;
+  height: auto; /* O puedes definir una altura específica si deseas un footer de altura fija */
+  background-color: #ffc08d;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+ 
+  padding: 20px; /* Añade algo de padding para asegurar espacio dentro del footer */
+}
+
+.searchButton {
+  width: auto; /* Ajusta el ancho automáticamente */
+  padding: 10px; /* Ajusta el padding */
+  border-radius: 0 5px 5px 0; /* Solo bordes redondeados en el lado derecho */
+  background-color: #F2953C; /* Mantiene el color de fondo */
+  color: #fff; /* Color del texto */
+  border: none; /* Sin bordes adicionales */
+  cursor: pointer; /* Cursor de puntero */
+  font-size: 1em; /* Ajusta el tamaño de fuente */
+}
