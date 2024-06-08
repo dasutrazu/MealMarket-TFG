@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Repository\PedidoproductoRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use App\Entity\Pedido;
 #[ORM\Entity(repositoryClass: PedidoproductoRepository::class)]
-class Pedidoproducto
+class PedidoProducto
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

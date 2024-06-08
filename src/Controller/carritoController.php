@@ -25,6 +25,8 @@ use App\Entity\Producto;
 use App\Entity\Carrito;
 use App\Entity\CarritoProducto;
 use App\Entity\Opiniones;
+use App\Entity\Pedido;
+use App\Entity\PedidoProducto;
 
 class carritoController extends AbstractController{
     private $entityManager;
@@ -228,8 +230,14 @@ class carritoController extends AbstractController{
 
     }
 
+
+
+
+
+
     //Testear todo y aun hay que crear PEDIDO y PEDIDOPRODUCTO
-    public function crearPedido(Request $request): Response
+
+    /*public function crearPedido(Request $request): Response
     {
         $em = $this->getDoctrine()->getManager();
         $usuario = $this->getUser();
@@ -270,13 +278,69 @@ class carritoController extends AbstractController{
     
         // Redirigir al usuario a una página de confirmación del pedido
         return $this->redirectToRoute('confirmacion_pedido', ['id' => $pedido->getId()]);
+    } */
+
+
+
+    //Calcular el precio total del pedido
+    public function getPrecioTotal(array $carritoProductos): float{
+            $total = 0;
+            foreach ($carritoProductos as $carritoProducto) {
+                $total += $carritoProducto->getIdProducto()->getPrice() * $carritoProducto->getCantidad();
+            }
+            return $total;
     }
 
 
 
+    #[Route('/realizar_pedido', name: 'realizar_pedido')]
+    public function realizarPedido(EntityManagerInterface $entityManager){
+        //$usuario = $this->getUser()->getIdUser();
+        $usuario = $this->getUser();
+        $carrito = $this->entityManager->getRepository(Carrito::class)->findOneBy(['id_user' => $usuario]);
+        $pedido = new Pedido();
+        $pedido->setIdUser($usuario);
+        $pedido->setFecha(new \DateTime());
+        $carritoProductos = $this->entityManager->getRepository(CarritoProducto::class)->findBy(["id_carrito" => $carrito]);
+        $total = $this->getPrecioTotal($carritoProductos);
+        $pedido->setTotal($total);
+        foreach ($carritoProductos as $carritoProducto) {
+            $producto = $carritoProducto->getIdProducto();
+            $cantidad = $carritoProducto->getCantidad();        
+            $pedidoProducto = new PedidoProducto();
+            $pedidoProducto->setIdProducto($producto);
+            $pedidoProducto->setCantidad($cantidad);
+            $pedidoProducto->setIdPedido($pedido);
+            $this->entityManager->persist($pedidoProducto);
+            $this->entityManager->remove($carritoProducto);
+            $this->entityManager->persist($producto);
+        }
+        $this->entityManager->persist($pedido);
+        $this->entityManager->flush();
+        /*return $this->redirectToRoute('app_carrito', /*[] ['id_carrito' => $carrito->getIdCarrito()]);*/
+        return $this->redirectToRoute('app_resumen_pedido', ['id_pedido' => $pedido->getIdPedido()]);
+    }
 
 
 
+    #[Route('/resumen_pedido/{id_pedido}', name: 'app_resumen_pedido')]
+    public function resumenPedido($id_pedido, EntityManagerInterface $entityManager): Response
+    {
+        // Buscar el pedido en la base de datos
+        $pedido = $entityManager->getRepository(Pedido::class)->find($id_pedido);
+        
+        if (!$pedido) {
+            throw $this->createNotFoundException('Pedido no encontrado.');
+        }
+    
+        // Buscar los productos del pedido
+        $pedidoProductos = $entityManager->getRepository(PedidoProducto::class)->findBy(['id_pedido' => $pedido]);
+    
+        return $this->render('compra.html.twig', [
+            'pedido' => $pedido,
+            'pedidoProductos' => $pedidoProductos
+        ]);
+    }
 
 
 

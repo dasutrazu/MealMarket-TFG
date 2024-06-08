@@ -5,7 +5,8 @@ namespace App\Entity;
 use App\Repository\PedidoRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 #[ORM\Entity(repositoryClass: PedidoRepository::class)]
 class Pedido
 {
@@ -16,7 +17,7 @@ class Pedido
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: 'id_user', referencedColumnName: 'id_user')]
-    private ?int $id_user = null;
+    private ?User $id_user = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $fecha = null;
@@ -40,12 +41,12 @@ class Pedido
     }
 
 
-    public function getIdUser(): ?int
+    public function getIdUser(): ?User
     {
         return $this->id_user;
     }
 
-    public function setIdUser(int $id_user): static
+    public function setIdUser(User $id_user):self
     {
         $this->id_user = $id_user;
 
