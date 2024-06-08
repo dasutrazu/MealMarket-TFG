@@ -1,64 +1,25 @@
 {% extends 'header.html.twig' %}
 
 {% block body %}
-   {#  <div class="containerBusqueda">
-        <div class="input-wrapper">
-            <div class="icon">
-                <img src="img/lupa.png" alt="busqueda"/>
-                <div class="icon-inner"></div>
-            </div>
-            {# Configurar la ruta y el controlador de busqueda habria q mirar lo de AJAX 
-            <form {# action="{{ path('busqueda', {idProduct: idProduct}) }}" method="post">
-                <input type="text" class="text" placeholder="Escribe un producto para buscar...">
-                <button type="submit">Buscar</button>
-            </form>
-        </div>
-    </div>
 
-    <div class="container-producto">
-        <div class="zonaDelProducto">
-            <img class="product-image" src="{{ producto.img }}" alt="Imagen del producto" />
-            <div class="product-name">{{ producto.name }}
-                <p class="precio-Style">{{ producto.price }} €</p>
-            </div>  
-        </div>
 
-        <div class="opiniones"> 
-            <p>Opiniones</p>
+    {{ parent() }}
+    <div class="container">
+        <img class="product-image" src="{{ producto.img }}" alt="Imagen del producto" />
+        <div class="info-box">
+            <div class="background-box"></div>
+            <div class="ratings">Valoraciones</div>
+            <div class="price">{{ producto.price }} €</div>
+            <div class="product-name">{{ producto.name }}</div>
+        </div>
+        <div class="reviews-box">
             <form action="/submit" method="post">
-                <label for="opinion">Escriba su opinion sobre el producto:</label>
+                <label for="opinion">Escriba su opinión sobre el producto:</label>
                 <input type="text" id="opinion" name="opinion" required>
+                <button type="submit">Enviar</button>
             </form>
         </div>
     </div>
 
-    <div class="container-Productos">
-        <div class="box-Productos">
-            <a href="#" class="linkproducto">
-                <img class="img-Producto" src="ruta/a/imagen.jpg" alt="Producto">
-                <div class="TituloProd">Nombre del Producto</div>
-            </a>
-        </div>
-    </div> #}
 
-
-  {#   <p>---------------------------------------------</p> #}
-  {# div de las opiniones de los usuarios #}
-     <div class="jefe">
-      <div class="foto">
-        <div class="img">
-          <img class="product-image" src="{{ producto.img }}" alt="Imagen del producto" />
-        </div>
-        <div class="info-producto">
-          <h1 class="product-name">{{ producto.name }}
-            <p class="precio-Style">{{ producto.price }} €</p>
-        </h1>
-      </div>
-      <div class="opiniones">
-        <form action="/submit" method="post">
-          <label for="opinion">Escriba su opinion sobre el producto:</label>
-          <input type="text" id="opinion" name="opinion" required>
-            </form>
-      </div>
-     </div>
 {% endblock %}
