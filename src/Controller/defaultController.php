@@ -70,11 +70,19 @@ class defaultController extends AbstractController{
     #[Route('/mealmarket/{idProduct}', name: 'meal')]
     public function meal(EntityManagerInterface $entityManager, $idProduct, Request $request): Response
     {
+        //if ($this->getUser() && $this->isGranted('ROLE_USER')) {
+            $userId = $this->getUser()->getIdUser();
         $productos = $entityManager->getRepository(Producto::class)->find($idProduct);
         $opiniones = $entityManager->getRepository(Opiniones::class)->findBy(['id_producto' => $idProduct]);
 
+        if ($request->request->has('submit_opinion')) {
+            $this->opiniones($request, $userId, $idProduct, $entityManager);    //Llamo a la función que va a manejar la insercion en la base de datos
+        }
         dump($idProduct);
-        return $this->render("productopag.html.twig", ['producto'=>$productos, 'opiniones'=>$opiniones]);
+        return $this->render("productopag.html.twig", ['producto'=>$productos,
+                                                       'opiniones'=>$opiniones,
+                                                       'idProduct' => $idProduct,//paso el id del producto para manejar bien los formularios de los productos
+                                                    ]);
     }
 
 
@@ -94,29 +102,24 @@ class defaultController extends AbstractController{
     }
 
     #[Route('/opiniones', name: 'opiniones')]
-    function opiniones(Request $request, $userId, $idProduct,EntityManagerInterface $entityManager ): ?Opiniones{
+    function opiniones(Request $request, $userId, $idProduct,EntityManagerInterface $entityManager ): void{
         if ($request->isMethod('POST')) {
             try {
-                $idProd = $idProduct;
-                $Userid = $userId;
-                $opinion= $request->request->get("opinion");
-    
-                $new = new Opiniones();
-                //$new->setIdOpinion($idProd);
-                $new->setIdUser($Userid);
-                $new->setIdProducto($idProd);
-                $new->setOpinion($opinion);
-                
-    
-                $entityManager->persist($new);
-                $entityManager->flush();
-    
-            } catch (Exception $e) {
-                dump($e->getMessage());
+                $opinionText = $request->request->get("opinion");
+                dump($opinionText); // Verifica que la opinión se está recibiendo
 
+                $newOpinion = new Opiniones();
+                $newOpinion->setIdUser($userId);
+                $newOpinion->setIdProducto($idProduct);
+                $newOpinion->setOpinion($opinionText);
+
+                $entityManager->persist($newOpinion);
+                $entityManager->flush();
+            } catch (Exception $e) {
+                // Maneja la excepción (por ejemplo, mostrando un mensaje de error)
+                dump($e->getMessage());
             }
         }
-        return null;
     }
     #[Route('/valoraciones', name: 'valoraciones')]
     function valoraciones(Request $request, $userId, $idProduct,EntityManagerInterface $entityManager ): ?Valoraciones{
