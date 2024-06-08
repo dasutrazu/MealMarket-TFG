@@ -71,9 +71,11 @@ class defaultController extends AbstractController{
     public function meal(EntityManagerInterface $entityManager, $idProduct, Request $request): Response
     {
         //if ($this->getUser() && $this->isGranted('ROLE_USER')) {
-            $userId = $this->getUser()->getIdUser();
+        $userId = $this->getUser()->getIdUser();
         $productos = $entityManager->getRepository(Producto::class)->find($idProduct);
         $opiniones = $entityManager->getRepository(Opiniones::class)->findBy(['id_producto' => $idProduct]);
+        $valoraciones = $entityManager->getRepository(Valoraciones::class)->findBy(['id_producto' => $idProduct]);
+
 
         if ($request->request->has('submit_opinion')) {
             $this->opiniones($request, $userId, $idProduct, $entityManager);    //Llamo a la función que va a manejar la insercion en la base de datos
@@ -81,6 +83,7 @@ class defaultController extends AbstractController{
         dump($idProduct);
         return $this->render("productopag.html.twig", ['producto'=>$productos,
                                                        'opiniones'=>$opiniones,
+                                                       'valoraciones'=>$valoraciones,
                                                        'idProduct' => $idProduct,//paso el id del producto para manejar bien los formularios de los productos
                                                     ]);
     }

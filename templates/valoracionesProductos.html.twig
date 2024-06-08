@@ -1,0 +1,38 @@
+{% extends 'header.html.twig' %}
+
+{% block body %}
+    <div class="ratings-box">
+    <form action="{{ path('meal', {'idProduct': idProduct}) }}" method="post">
+        <label for="valoracion">Valoración:</label>
+        <div class="stars">
+            {% for i in 1..5 %}
+                <input type="radio" id="star{{ i }}" name="valoracion" value="{{ i }}" required>
+                <label for="star{{ i }}">&#9733;</label>
+            {% endfor %}
+        </div>
+        <button type="submit" name="submit_valoracion">Enviar</button>
+    </form>
+    </div>
+    {% block javascript %}
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const stars = document.querySelectorAll('.stars label');
+    stars.forEach(star => {
+        star.addEventListener('mouseover', function () {
+            this.style.color = 'gold';
+            let previousSibling = this.previousElementSibling;
+            while (previousSibling) {
+                previousSibling.style.color = 'gold';
+                previousSibling = previousSibling.previousElementSibling;
+            }
+        });
+
+        star.addEventListener('mouseout', function () {
+            stars.forEach(label => label.style.color = 'gray');
+            document.querySelectorAll('.stars input:checked ~ label').forEach(label => label.style.color = 'gold');
+        });
+    });
+});
+ </script>
+    {% endblock %}
+{% endblock %}

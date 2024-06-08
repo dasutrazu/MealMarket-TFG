@@ -12,16 +12,13 @@
             <div class="price">{{ producto.price }} €</div>
             <div class="product-name">{{ producto.name }}</div>
         </div>
-{#         <div class="reviews-box">
-            <form action="/submit" method="post">
-                <label for="opinion">Escriba su opinión sobre el producto:</label>
-                <input type="text" id="opinion" name="opinion" required>
-                <button type="submit">Enviar</button>
-            </form>
-        </div> #}
+
     </div>
-        <div class="green">
+        <div class="opiniones">
             {{ include('opinionesProductos.html.twig', {'opiniones': opiniones}) }}
+        </div>
+                <div class="valoraciones">
+            {{ include('valoracionesProductos.html.twig', {'valoraciones': valoraciones}) }}
         </div>
 
 {% endblock %}
