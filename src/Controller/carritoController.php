@@ -142,9 +142,15 @@ class carritoController extends AbstractController{
     public function addProducto(int $idProduct, Request $request)
     {
         try {
-            $usuario = $this->getUser()->getIdUser();
-            $productoId = $request->request->get("id_producto");
+            $usuario = $this->getUser();
+            // Verificar si el usuario está autenticado
+            if (!$usuario) {
+                $this->addFlash('error', 'Necesitas estar registrado para añadir productos al carrito.');
+                return $this->redirectToRoute('login'); // Redirigir a la página de inicio de sesión
+            }
 
+            $usuarioId = $usuario->getIdUser();
+            $productoId = $request->request->get("id_producto");
             // Comprobamos si el producto existe
             $producto = $this->entityManager->getRepository(Producto::class)->find($productoId);
             if (!$producto) {
