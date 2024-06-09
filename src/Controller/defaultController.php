@@ -70,22 +70,30 @@ class defaultController extends AbstractController{
     #[Route('/mealmarket/{idProduct}', name: 'meal')]
     public function meal(EntityManagerInterface $entityManager, $idProduct, Request $request): Response
     {
-        //if ($this->getUser() && $this->isGranted('ROLE_USER')) {
-        $userId = $this->getUser()->getIdUser();
         $productos = $entityManager->getRepository(Producto::class)->find($idProduct);
         $opiniones = $entityManager->getRepository(Opiniones::class)->findBy(['id_producto' => $idProduct]);
         $valoraciones = $entityManager->getRepository(Valoraciones::class)->findBy(['id_producto' => $idProduct]);
+        
+        if ($this->getUser() && $this->isGranted('ROLE_USER')) {
+            $userId = $this->getUser()->getIdUser();
+            
 
 
-        if ($request->request->has('submit_opinion')) {
-            $this->opiniones($request, $userId, $idProduct, $entityManager);    //Llamo a la función que va a manejar la insercion en la base de datos
-        }
-        dump($idProduct);
+            if ($request->request->has('submit_opinion')) {
+                $this->opiniones($request, $userId, $idProduct, $entityManager);    //Llamo a la función que va a manejar la insercion en la base de datos
+            }
+            return $this->render("productopag.html.twig", ['producto'=>$productos,
+                                                       'opiniones'=>$opiniones,
+                                                       'valoraciones'=>$valoraciones,
+                                                       'idProduct' => $idProduct,//paso el id del producto para manejar bien los formularios de los productos
+                                                    ]);
+        }else{
         return $this->render("productopag.html.twig", ['producto'=>$productos,
                                                        'opiniones'=>$opiniones,
                                                        'valoraciones'=>$valoraciones,
                                                        'idProduct' => $idProduct,//paso el id del producto para manejar bien los formularios de los productos
                                                     ]);
+        }
     }
 
 

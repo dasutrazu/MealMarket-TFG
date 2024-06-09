@@ -18,7 +18,9 @@ use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 //correo
-use Symfony\App\Controller\MailerInterface;
+// para poder enviar los correos
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use App\Controller\JsonResponse;
 use App\Entity\Producto;
 
@@ -46,7 +48,7 @@ class loginController extends AbstractController{
     }
 
     #[Route('/registro', name: 'registro')]
-    public function registro(Request $request,  EntityManagerInterface $entityManager,UserPasswordHasherInterface $passwordHasher): Response
+    public function registro(Request $request,  EntityManagerInterface $entityManager,UserPasswordHasherInterface $passwordHasher,MailerInterface $mailer): Response
     {
         if ($request->isMethod('POST')) {
           
@@ -72,6 +74,15 @@ class loginController extends AbstractController{
             // Persistir el nuevo usuario en la base de datos
             $entityManager->persist($user);
             $entityManager->flush();
+
+            // Enviar correo electrónico instala =>composer require symfony/google-mailer
+            $email = (new TemplatedEmail())
+            ->from('cjldm2004@gmail.com') // se ecribe el correo de quien envia y en env se pone el mismo correo con la contraseña de aplicaciones externas
+            ->to($user->getEmail())
+            ->subject('Verificación de Correo Electrónico')
+            ->html($this->renderView('correoBienvenida.html.twig', [ 'user' => $user])); //pasamos los parametros a la plantilla del correo
+
+            $mailer->send($email);
                 // Redirige a otra página (por ejemplo, la página de inicio) o renderiza la misma página con un mensaje de éxito
                 return $this->redirectToRoute('login');
         }
