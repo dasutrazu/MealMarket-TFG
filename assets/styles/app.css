@@ -131,7 +131,7 @@
     padding: 0;
     font-family: Arial, sans-serif;
     background-color: #ffc08d; /* Color de fondo */
-    color: #fff; /* Color del texto */
+    color: #000000; /* Color del texto */
 }
   .login-container {
 

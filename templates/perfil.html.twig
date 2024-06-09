@@ -1,0 +1,28 @@
+{% extends "header.html.twig" %}
+{% block body %} 
+{{parent()}}   
+<h1>Bienvenido a tu perfil {{app.user.nombreusuario}}</h1>
+    <div>
+        <table class="pedidos">
+            <tr>
+            <th>Id</th>
+            <th>Fecha</th>
+            <th>Total</th>
+            </tr>
+            {% for pedido in pedidos %}
+                <tr> 
+                <td>{{ pedido.idPedido }}</td>
+                <td>{{ pedido.fecha|date("d-m-Y") }}</td>
+                <td>{{ pedido.total }} €</td>
+                <td><a href="{#{ path('app_pedido', {'id': pedido.idPedido})}#}"><button>Pedido</button></a><td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div style="margin: 5px;">
+    <hr>
+    <br>
+    <h3> Eliminar la cuenta </h3>
+    <br>
+    <button onClick="if(confirm('¿Seguro que deseas eliminar tu cuenta?')) { window.location.href='{#{ path('app_borrar_mi_usuario')}#}'}">Eliminar Cuenta</button>
+{% endblock %}

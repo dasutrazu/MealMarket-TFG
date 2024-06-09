@@ -18,7 +18,9 @@
                  {% if app.user %}
                         <div>  <b>User</b>: {{ app.user.email }} 
                             <a href="{{ path('defaults') }}">Home</a> 
+                            <a href="{{ path('app_perfil')}}"> Mi Perfil </a>
                             <a href="{{ path('logout') }}">Cerrar sesión</a>
+                            
                         {% if carrito is defined %}  
                             <a href="{{ path('app_carrito', {'id_carrito': carrito.idCarrito}) }}" class="linkproducto">Ir al Carrito</a>
                                 {% endif %}  

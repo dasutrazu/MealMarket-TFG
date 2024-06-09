@@ -29,3 +29,7 @@ app_carrito:
 buscarProducto:
     path: /buscarProducto
     controller: App\Controller\ProductController::search
+
+perfil:
+    path: /app_perfil
+    controller: App\Controller\UsuarioController::perfil
