@@ -15,7 +15,7 @@
     {# Campo de búsqueda con botón #}
    <div style="text-align:center; margin-bottom: 20px; display: flex; justify-content: center; align-items: center;">
         <input type="text" id="search" placeholder="Buscar productos..." style="width: 50%; padding: 10px;">
-        <button id="searchButton" class="searchButton">Buscar</button>
+        <button id="searchButton" class="searchButton" onClick="window.location.href = '{{ path("buscarProducto") }}?q=' ">Buscar</button>
     </div>
 
     {# Contenedor para resultados de búsqueda y todos los productos #}
@@ -49,56 +49,24 @@
 
     {% block javascript %}
     <script>
-      document.addEventListener("DOMContentLoaded", function() {
-    console.log("DOMContentLoaded evento disparado...");
-    var searchButton = document.getElementById('searchButton');  // Botón de búsqueda
-    var searchInput = document.getElementById('search');  // Campo de entrada de búsqueda
-    var resultsDiv = document.getElementById('results');  // Div para mostrar resultados
-    var productListDiv = document.getElementById('product-list');  // Div que contiene todos los productos
+ window.onload = function() {
+            console.log("JavaScript cargado y ventana completamente cargada.");
 
-    // Evento clic del botón de búsqueda
-    searchButton.addEventListener('click', function() {
-        var query = searchInput.value;
-        if (query.length < 3) {
-            resultsDiv.innerHTML = '';  // Limpia los resultados si la query es menor de 3 caracteres
-            productListDiv.style.display = 'block';  // Muestra todos los productos
-            return;
-        }
+            var searchButton = document.getElementById('searchButton');
+            var searchInput = document.getElementById('search');
 
-        // Realiza una solicitud GET para buscar productos
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '{{ path("buscarProducto") }}?q=' + encodeURIComponent(query), true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var data = JSON.parse(xhr.responseText);
-                resultsDiv.innerHTML = '';
-                productListDiv.style.display = 'none';  // Oculta la lista de todos los productos
+            searchButton.addEventListener('click', function() {
+                var query = searchInput.value.trim();
+                console.log("Botón de búsqueda clicado. Query:", query);
 
-                data.forEach(function (product) {
-                    var mealUrl = '{{ path('meal', {'idProduct': 'ID'}) }}'.replace('ID', product.id);
-                    var addProductoUrl = '{{ path('addProducto', {'idProduct': 'ID'}) }}'.replace('ID', product.id);
-                    
-                    var div = document.createElement('div');
-                    div.className = 'box-Productos';
-                    div.innerHTML = `
-                        <a href="${mealUrl}" class="linkproducto">
-                            <img class="img-Producto" src="${product.img}" alt="${product.name}" />
-                            <p class="TituloProd">${product.name}</p>
-                            <p>Supermercado: ${product.supermarket}</p>
-                            <h4>${product.price} €</h4>
-                        </a>
-                        <form action="${addProductoUrl}" method="post">
-                            <input type="hidden" name="id_producto" value="${product.id}">
-                            <button type="submit">Agregar al Carrito</button>
-                        </form>
-                    `;
-                    resultsDiv.appendChild(div);
-                });
-            }
+                if (query.length >= 3) {
+                    console.log("Redirigiendo a la búsqueda...");
+                    window.location.href = '{{ path("buscarProducto") }}?q=' + encodeURIComponent(query);
+                } else {
+                    alert('Por favor, ingrese al menos 3 caracteres para buscar.');
+                }
+            });
         };
-        xhr.send();
-    });
-});
 
         function crearSalto(height) {
             console.log("Creando salto de línea...");

@@ -26,10 +26,10 @@ app_carrito:
     path: /carrito/{id_carrito}
     controller: App\Controller\carritoController::index
 
-buscarProducto:
-    path: /buscarProducto
-    controller: App\Controller\ProductController::search
-
 perfil:
     path: /app_perfil
     controller: App\Controller\UsuarioController::perfil
+
+buscarProducto:
+    path: /buscarProducto
+    controller: App\Controller\defaultController::buscar

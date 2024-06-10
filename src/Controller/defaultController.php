@@ -157,47 +157,27 @@ class defaultController extends AbstractController{
     }
 
 
-
-
-    /*    Prueba metodo para buscar    
-    #[Route('/buscarProducto', name: 'buscarProducto')]
-    public function search(Request $request): JsonResponse
+    #[Route('/buscar', name: 'buscarProducto')]
+    public function buscar(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $query = $request->query->get('q', '');
-        
-        if (empty($query)) {
-            return new JsonResponse([]);
+        $query = $request->query->get('q');
+
+        if ($query) {
+            // Buscar productos que coincidan con el término de búsqueda
+            $productos = $entityManager->getRepository(Producto::class)->createQueryBuilder('p')
+                ->where('p.name LIKE :query')
+                ->setParameter('query', '%' . $query . '%')
+                ->getQuery()
+                ->getResult();
+        } else {
+            $productos = [];
         }
 
-        $products = $this->productRepository->findByNameLike($query);
-
-        $data = [];
-        foreach ($products as $product) {
-            $data[] = [
-                'id' => $product->getId(),
-                'name' => $product->getName(),
-                'price' => $product->getPrice(),
-                'img' => $product->getImg(),  // Asumiendo que tienes una propiedad 'img'
-                'supermarket' => $product->getSupermarket(),  // Asumiendo que tienes una propiedad 'supermarket'
-                // Agrega otros campos necesarios
-            ];
-        }
-
-        return new JsonResponse($data);
+        return $this->render('productosBuscados.html.twig', [
+            'productos' => $productos,
+        ]);
     }
-     */
 
 
-     public function search(Request $request, ProductRepository $productRepository): JsonResponse
-     {
-         $query = $request->query->get('q', '');
- 
-         if (strlen($query) < 3) {
-             return new JsonResponse([]);
-         }
- 
-         $productos = $productRepository->findByName($query);
- 
-         return new JsonResponse($productos);
-     }
+
 }

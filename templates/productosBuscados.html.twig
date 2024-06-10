@@ -1,0 +1,31 @@
+{# templates/productosBuscados.html.twig #}
+{% extends 'header.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+
+
+
+    <h1>Resultados de la búsqueda</h1>
+
+    {% if productos is empty %}
+        <p>No se encontraron productos que coincidan con tu búsqueda.</p>
+    {% else %}
+        <div class="container-Productos">
+            {% for producto in productos %}
+                <div class="box-Productos">
+                    <a href="{{ path('meal', {'idProduct': producto.id_producto}) }}" class="linkproducto">
+                        <img class="img-Producto" src="{{ producto.img }}" alt="{{ producto.name }}" />
+                        <p class="TituloProd">{{ producto.name }}</p>
+                        <p>Supermercado: {{ producto.supermarket }}</p>
+                        <h4>{{ producto.price }} €</h4>
+                    </a>
+                    <form action="{{ path('addProducto', {'idProduct': producto.id_producto}) }}" method="post">
+                        <input type="hidden" name="id_producto" value="{{ producto.id_producto }}">
+                        <button type="submit">Agregar al Carrito</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

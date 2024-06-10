@@ -25,5 +25,9 @@
     <br>
     <h3> Eliminar la cuenta </h3>
     <br>
-    <button onClick="if(confirm('¿Seguro que deseas eliminar tu cuenta?')) { window.location.href='{#{ path('app_borrar_mi_usuario')}#}'}">Eliminar Cuenta</button>
+
+
+    <button onClick="if(confirm('¿Seguro que deseas eliminar tu cuenta?')) { window.location.href='{{ path('app_borrar_mi_usuario')}}'}">Eliminar Cuenta</button>
+
 {% endblock %}
+
