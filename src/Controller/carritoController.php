@@ -239,55 +239,6 @@ class carritoController extends AbstractController{
 
 
 
-
-
-    //Testear todo y aun hay que crear PEDIDO y PEDIDOPRODUCTO
-
-    /*public function crearPedido(Request $request): Response
-    {
-        $em = $this->getDoctrine()->getManager();
-        $usuario = $this->getUser();
-    
-        // Asumiendo que el carrito se obtiene de alguna forma, por ejemplo, buscando por usuario
-        $carrito = $em->getRepository(Carrito::class)->findOneBy(['usuario' => $usuario]);
-    
-        if (!$carrito) {
-            // Manejar el error, como redirigir a una página de error o mostrar un mensaje
-            return $this->redirectToRoute('error_page');
-        }
-    
-        // Crear un nuevo pedido
-        $pedido = new Pedido();
-        $pedido->setUsuario($usuario);
-        $pedido->setFecha(new \DateTime()); // Fecha actual
-        $pedido->setTotal($carrito->calcularTotal()); // Implementar esta función en la entidad Carrito
-    
-        $em->persist($pedido);
-    
-        // Transferir los ítems del carrito a detalles de pedido
-        foreach ($carrito->getCarritoProductos() as $item) {
-            $detalle = new DetallePedido();
-            $detalle->setPedido($pedido);
-            $detalle->setProducto($item->getProducto());
-            $detalle->setCantidad($item->getCantidad());
-            $detalle->setPrecio($item->getProducto()->getPrecio()); // Asegúrate de que el precio es el actual
-    
-            $em->persist($detalle);
-        }
-    
-        // Opcional: Limpiar o eliminar el carrito
-        $carrito->limpiarCarrito(); // Implementa este método para borrar los productos o el carrito entero
-        $em->remove($carrito); // Si quieres eliminar el carrito completamente
-    
-        // Guardar todo en la base de datos
-        $em->flush();
-    
-        // Redirigir al usuario a una página de confirmación del pedido
-        return $this->redirectToRoute('confirmacion_pedido', ['id' => $pedido->getId()]);
-    } */
-
-
-
     //Calcular el precio total del pedido
     public function getPrecioTotal(array $carritoProductos): float{
             $total = 0;
@@ -351,3 +302,4 @@ class carritoController extends AbstractController{
 
 
 }
+

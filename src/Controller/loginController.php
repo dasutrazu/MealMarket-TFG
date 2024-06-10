@@ -98,3 +98,13 @@ class loginController extends AbstractController{
         }
 
 }
+
+
+/*
+
+    ERROR AL ENVIAR EL EMAIL POR FALTA DE TABLA:
+    - EJECUTAR ESTE COMANDO EN EL CMD: php bin/console messenger:setup-transports   --> Crea la tabla a partir de la cual se envian los emails en symfony
+
+
+
+*/
