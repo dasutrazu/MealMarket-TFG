@@ -2,7 +2,8 @@
 {% block body %} 
 {{parent()}}   
 <h1>Bienvenido a tu perfil {{app.user.nombreusuario}}</h1>
-    <div>
+
+    <div><h2> Estos son tus pedidos anteriores: </h2>
         <table class="pedidos">
             <tr>
             <th>Id</th>
@@ -14,7 +15,7 @@
                 <td>{{ pedido.idPedido }}</td>
                 <td>{{ pedido.fecha|date("d-m-Y") }}</td>
                 <td>{{ pedido.total }} €</td>
-                <td><a href="{#{ path('app_pedido', {'id': pedido.idPedido})}#}"><button>Pedido</button></a><td>
+                <td><a href="{{ path('app_pedido', {'id_pedido': pedido.idPedido})}}"><button>Pedido</button></a><td>
                 </tr>
             {% endfor %}
         </table>

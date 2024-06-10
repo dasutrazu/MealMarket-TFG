@@ -26,11 +26,15 @@ class usuarioController extends AbstractController
 
 
     #[Route('/pedido/{id_pedido}', name: 'app_pedido')]
-    public function pedido($id, EntityManagerInterface $entityManager){
+    public function pedido($id_pedido, EntityManagerInterface $entityManager): Response
+    {
+        $pedido = $entityManager->getRepository(Pedido::class)->findOneBy(['id_pedido' => $id_pedido]);
+        $productosPedido = $entityManager->getRepository(PedidoProducto::class)->findBy(['id_pedido' => $pedido]);
 
-        $pedido = $entityManager->getRepository(Pedido::class)->findOneBy(['id_pedido'=> $id]);
-        $productosPedido = $entityManager->getRepository(PedidoProducto::class)->findBy(['id_pedido'=>$pedido]);
-        //return $this->render("", ["productos"=>$productosPedido]);
+        return $this->render('compra.html.twig', [
+            'pedido' => $pedido,
+            'pedidoProductos' => $productosPedido,
+        ]);
 
     }
 

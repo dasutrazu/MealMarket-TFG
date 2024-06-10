@@ -225,3 +225,13 @@ footer {
   cursor: pointer; /* Cursor de puntero */
   font-size: 1em; /* Ajusta el tamaño de fuente */
 }
+
+/*  pedido*/
+
+.pedido {
+  margin-top: 50px; /* Ajusta el valor según tus necesidades */
+  padding: 20px; /* Añade relleno interno si es necesario */
+ /* background-color: #f9f9f9; /* Añade un color de fondo si es necesario */
+  border-radius: 5px; /* Añade bordes redondeados si es necesario */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añade sombra si es necesario */
+}
