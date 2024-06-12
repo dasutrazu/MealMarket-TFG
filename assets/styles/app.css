@@ -15,7 +15,7 @@
     background-color: white; /* Fondo blanco o el color que prefieras */
     z-index: 1000; /* Asegúrate de que el nav esté por encima de otros elementos */
     box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Añade una sombra si quieres */
-}
+  }
   .gradient {
     width: 100%;
     height: 150px;
@@ -26,14 +26,14 @@
   }
   
   /*img de pefil*/
-    .banner {
+  .banner {
     width: 90.99px;
     height: 90.99px; /* Asegúrate de que el alto coincida con el ancho para que sea un círculo */
     border-radius: 50%; /* Hace que el borde del elemento sea redondeado, creando un círculo */
     left: 90%;
     top: 30px;
     position: absolute;
-}
+  }
 
 /* IMG MealMarket en el header*/
   .logo {
@@ -44,7 +44,7 @@
     top: 0; /* Ajusta la posición vertical según sea necesario */
     position: absolute;
     border-radius: 50px;
-}
+  }
 
 
   

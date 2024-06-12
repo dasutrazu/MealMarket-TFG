@@ -84,7 +84,9 @@ class carritoController extends AbstractController{
                 }
             }
         } */
-
+        /*         if ($request->request->has('accion_eliminar')) {
+            $this->eliminarProducto($request, $id_carrito, $entityManager);    //Llamo a la función que va a manejar la insercion en la base de datos
+        } */
         // Obtener los productos del carrito
         $carritoProductos = $entityManager->getRepository(CarritoProducto::class)->findBy(['id_carrito' => $carrito]);
 
@@ -102,7 +104,76 @@ class carritoController extends AbstractController{
             'total' => $total
         ]);
     }
+/*     #[Route('/eliminarProducto/{idCarrito}', name: 'eliminar_producto')]
+    public function eliminarProducto(Request $request, $idCarrito, $idProducto, EntityManagerInterface $entityManager) {
+        try {
+            $carritoProducto = $entityManager->getRepository(CarritoProducto::class)->findOneBy([
+                'idCarrito' => $idCarrito,
+                'idProducto' => $idProducto
+            ]);
+            dump($idCarrito);
+            dump($idProducto);
 
+            if (!$carritoProducto) {
+                throw $this->createNotFoundException('Producto no encontrado en el carrito.');
+            }
+
+            $entityManager->remove($carritoProducto);
+            $entityManager->flush();
+            $carritoProductos = $entityManager->getRepository(CarritoProducto::class)->findBy(['id_carrito' => $idCarrito]);
+
+
+            $this->addFlash('success', 'Producto eliminado del carrito exitosamente.');
+        } catch (Exception $e) {
+            $this->addFlash('error', 'Error al eliminar el producto del carrito: ' . $e->getMessage());
+        }
+
+        //return $this->redirectToRoute('app_carrito', ['id_carrito' => $idCarrito]);
+        return $this->render('defaults');
+
+    } */
+    #[Route('/eliminarProducto', name: 'eliminar_producto')]
+    public function eliminarProducto(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $idCarrito = $request->request->get('idCarrito');
+        $idProducto = $request->request->get('idProducto');
+    dump($idCarrito);
+    dump($idProducto);
+        // Verifica que los parámetros se reciben correctamente
+        if (!$idCarrito || !$idProducto) {
+            $this->addFlash('error', 'Error al recibir los parámetros necesarios.');
+            return $this->redirectToRoute('app_carrito', ['id_carrito' => $idCarrito]);
+        }
+    
+        try {
+            $carritoProducto = $entityManager->getRepository(CarritoProducto::class)->findOneBy([
+                'id_carrito' => $idCarrito,
+                'id_producto' => $idProducto
+            ]);
+            dump($carritoProducto->getIdProducto());
+    
+            if (!$carritoProducto) {
+                $this->addFlash('error', 'Producto no encontrado en el carrito.');
+                return $this->redirectToRoute('app_carrito', ['id_carrito' => $idCarrito]);
+            }
+    
+            $entityManager->remove($carritoProducto);
+            $entityManager->flush();
+    
+            // Verifica que la eliminación fue exitosa
+            if (!$entityManager->contains($carritoProducto)) {
+                $this->addFlash('success', 'Producto eliminado del carrito exitosamente.');
+            } else {
+                $this->addFlash('error', 'Error al eliminar el producto del carrito.');
+            }
+        } catch (Exception $e) {
+            $this->addFlash('error', 'Error al eliminar el producto del carrito: ' . $e->getMessage());
+        }
+    
+        return $this->redirectToRoute('app_carrito', ['id_carrito' => $idCarrito]);
+    }
+    
+    
     /* 
     public function index($id_carrito, EntityManagerInterface $entityManager, Request $request): Response
     {
