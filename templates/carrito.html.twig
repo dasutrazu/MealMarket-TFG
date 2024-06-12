@@ -36,6 +36,19 @@
 {#                             <form action="{{ path('carrito', { 'id': carritoProducto.idProducto }) }}" method="post">
                                 <button type="submit" name="accion_eliminar" value="{{carritoProducto.idProducto.id_producto}}">Eliminar</button>
                             </form>  #}
+                            <form action="{{ path('aniadirUno') }}" method="post">
+                                <input type="hidden" name="idCarrito" value="{{ carrito.idCarrito }}">
+                                <input type="hidden" name="idProducto" value="{{ carritoProducto.idProducto.id_producto }}">
+                                <button type="submit">Añadir Uno</button>
+                            </form>
+                                
+                                <span>{{ carritoProducto.cantidad }}</span>
+                            <form action="{{ path('quitarUno') }}" method="post">
+                                <input type="hidden" name="idCarrito" value="{{ carrito.idCarrito }}">
+                                <input type="hidden" name="idProducto" value="{{ carritoProducto.idProducto.id_producto }}">
+                                <button type="submit">Quitar Uno</button>
+                            </form>
+
                             <form action="{{ path('eliminar_producto') }}" method="post">
                                 <input type="hidden" name="idCarrito" value="{{ carrito.idCarrito }}">
                                 <input type="hidden" name="idProducto" value="{{ carritoProducto.idProducto.id_producto }}">
