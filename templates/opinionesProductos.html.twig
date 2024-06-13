@@ -1,8 +1,20 @@
 {# templates/productopag.html.twig #}
 {% extends 'header.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/product.css') }}">
+{% endblock %}
+
 {% block body %}
-<div style="border: 1px solid black; height: 500px; overflow: scroll; padding: 10px;" id="chat">
+<div class="reviews-box">
+     <form action="{{ path('meal', {'idProduct': idProduct}) }}" method="post">
+        <label for="opinion" class="EnunciadoForm">Escriba su opinión sobre el producto:</label>
+        <input type="text" id="opinion" name="opinion" required>
+        <button type="submit" name="submit_opinion" class="boton-enviar">Enviar</button>
+    </form>
+</div> 
+<div  id="chat">
     {% if opiniones is not empty %}
         {% for opinion in opiniones %}
             <div class="chat-message">
@@ -14,11 +26,6 @@
         <p class="no-messages">No hay mensajes en el chat.</p>
     {% endif %}
 </div>
-<div class="reviews-box">
-    <form action="{{ path('meal', {'idProduct': idProduct}) }}" method="post">
-        <label for="opinion">Escriba su opinión sobre el producto:</label>
-        <input type="text" id="opinion" name="opinion" required>
-        <button type="submit" name="submit_opinion">Enviar</button>
-    </form>
-</div>
+
+
 {% endblock %}

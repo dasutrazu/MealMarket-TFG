@@ -1,0 +1,88 @@
+/* public/css/product.css */
+
+
+.containerInsideProducto {
+    margin-top: 10%;
+    margin-left: 5%;
+    display: flex; /* Mostrar los elementos como flexbox */
+    align-items: center; /* Centrar verticalmente los elementos */
+}
+.product-img{
+    height: 35%;
+    width: 25%;
+    height: 35%; /* Altura del 35% del contenedor */
+    width: 25%; /* Ancho del 25% del contenedor */
+    margin-right: 20px; /* Margen derecho para separar la imagen del contenido */
+    border-radius: 8px; /* Bordes redondeados */
+    object-fit: contain; /* Ajustar la imagen dentro del tamaño especificado */
+}
+.info-box {
+    position: absolute; /* Posición absoluta para colocarla con respecto al .containerInsideProducto */
+    font-size: 30px;
+    top: 19%; /* Alineación en la parte superior */
+    left:32%; /* Alineación en la parte derecha */
+    padding: 10px; /* Espacio interior dentro de .info-box */
+    border-radius: 8px; /* Bordes redondeados */
+}
+.productInsideName{
+    font-weight: bold; /* Texto en negrita */
+    font-size: 1.5em; /* Tamaño de fuente */
+    margin-bottom: 10px; 
+}
+
+.priceInsideProduct {
+    margin-top: 10px;
+    font-size: 1.2em; /* Tamaño de fuente */
+
+}
+/*-------------------------------------------------------------------*/
+.reviews-box{
+    max-width: 600px; /* Ajusta el ancho máximo según tus necesidades */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    padding: 20px; /* Agrega espacio alrededor del formulario */
+}
+.boton-enviar {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.boton-enviar:hover {
+    background-color: #45a049; /* Darker Green */
+}
+/*------------------CHAT DIV----------------*/
+#chat {
+    max-height: 35vh; /* Altura máxima del contenedor */
+    overflow-y: auto; /* Habilita el desplazamiento vertical */
+    display: flex;
+    flex-direction: column-reverse; /* Invierte el orden de los elementos */
+}
+
+.chat-message {
+    background-color: #f2f2f2;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+}
+
+.no-messages {
+    color: gray;
+    font-style: italic;
+}
+
+.scrollbar {
+    width: 20%;
+    height: 35%;
+    background-color: lightgray;
+    border-radius: 8px;
+    overflow: hidden;
+}
+

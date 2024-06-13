@@ -1,7 +1,12 @@
 {% extends 'header.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/product.css') }}">
+{% endblock %}
+
 {% block body %}
-    <div class="ratings-box">
+    <div class="reviews-box">
     <form action="{{ path('meal', {'idProduct': idProduct}) }}" method="post">
         <label for="valoracion">Valoración:</label>
         <div class="stars">
@@ -10,7 +15,7 @@
                 <label for="star{{ i }}">&#9733;</label>
             {% endfor %}
         </div>
-        <button type="submit" name="submit_valoracion">Enviar</button>
+        <button type="submit_valoracion"  class="boton-enviar">Enviar</button>
     </form>
     </div>
     {% block javascript %}

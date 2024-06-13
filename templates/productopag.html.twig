@@ -1,24 +1,30 @@
 {% extends 'header.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/product.css') }}">
+{% endblock %}
+
+
 {% block body %}
 
 
-    {{ parent() }}
-    <div class="container">
-        <img class="product-image" src="{{ producto.img }}" alt="Imagen del producto" />
+{#     {{ parent() }}
+ #}    <div class="containerInsideProducto">
+        <img class="product-img" src="{{ producto.img }}" alt="Imagen del producto" />
         <div class="info-box">
+            <div class="productInsideName">{{ producto.name }}</div>
             <div class="background-box"></div>
+            <div class="priceInsideProduct">{{ producto.price }} €</div>
             <div class="ratings">Valoraciones</div>
-            <div class="price">{{ producto.price }} €</div>
-            <div class="product-name">{{ producto.name }}</div>
         </div>
 
     </div>
         <div class="opiniones">
-            {{ include('opinionesProductos.html.twig', {'opiniones': opiniones}) }}
+            {{ include('opinionesProductos.html.twig', {'opiniones': opiniones, 'idProduct':idProduct}) }}
         </div>
-                <div class="valoraciones">
+                 <div class="valoraciones">
             {{ include('valoracionesProductos.html.twig', {'valoraciones': valoraciones}) }}
-        </div>
+        </div> 
 
 {% endblock %}

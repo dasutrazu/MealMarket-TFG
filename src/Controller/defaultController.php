@@ -78,9 +78,11 @@ class defaultController extends AbstractController{
             $userId = $this->getUser()->getIdUser();
             
 
+            dump($userId);
 
             if ($request->request->has('submit_opinion')) {
                 $this->opiniones($request, $userId, $idProduct, $entityManager);    //Llamo a la función que va a manejar la insercion en la base de datos
+                dump($userId);
             }
             return $this->render("productopag.html.twig", ['producto'=>$productos,
                                                        'opiniones'=>$opiniones,
@@ -102,9 +104,7 @@ class defaultController extends AbstractController{
         if ($request->isMethod('POST')) {
             
         }
-    }
-
-   
+    }   
 
     #[Route('/carrito', name: 'carrito')]
     public function carrito()
@@ -119,9 +119,12 @@ class defaultController extends AbstractController{
                 $opinionText = $request->request->get("opinion");
                 dump($opinionText); // Verifica que la opinión se está recibiendo
 
+
                 $newOpinion = new Opiniones();
                 $newOpinion->setIdUser($userId);
+                dump($idProduct);
                 $newOpinion->setIdProducto($idProduct);
+                dump($userId);
                 $newOpinion->setOpinion($opinionText);
 
                 $entityManager->persist($newOpinion);
