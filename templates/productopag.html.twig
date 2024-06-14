@@ -20,11 +20,68 @@
         </div>
 
     </div>
-        <div class="opiniones">
-            {{ include('opinionesProductos.html.twig', {'opiniones': opiniones, 'idProduct':idProduct}) }}
+
+   {# ---------------------------------------------------------------------------------------------------- #}
+    <div class="reviews-box">
+        <form action="{{ path('opiniones') }}" method="post">
+            <label for="opinion" class="EnunciadoForm">Escriba su opinión sobre el producto:</label>
+            <input type="hidden" name="UsuarioIdOpiniones" value="{{  usuarioId }}">
+            <input type="hidden" name="idProducto" value="{{ producto.getId_Producto() }}">
+            <input type="text" id="opinion" name="opinion" required>
+            <button type="submit" name="submit_opinion" class="boton-enviar">Enviar</button>
+        </form>
+        {#                             <form action="{{ path('aniadirUno') }}" method="post">
+                                <input type="hidden" name="idCarrito" value="{{ carrito.idCarrito }}">
+                                <input type="hidden" name="idProducto" value="{{ carritoProducto.idProducto.id_producto }}">
+                                <button type="submit">Añadir Uno</button>
+                            </form> #}
+        <div  id="chat">
+            {% if opiniones is not empty %}
+                {% for opinion in opiniones %}
+                    <div class="chat-message">
+                        <strong>Author ID:</strong> {{ opinion.idUser }},
+                        <strong>Message:</strong> {{ opinion.opinion }},
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-messages">No hay mensajes en el chat.</p>
+            {% endif %}
         </div>
-                 <div class="valoraciones">
+    </div> 
+    {# ---------------------------------------------------------------------------------------------------- #}
+    <div class="reviews-box">
+        <form action="{{ path('valoraciones' ) }}" method="post">
+            <label for="valoracion">Valoración:</label>
+            <div class="stars">
+                {% for i in 1..5 %}
+                    <input type="hidden" name="UsuarioIdOpiniones" value="{{  usuarioId }}">
+                    <input type="hidden" name="idProducto" value="{{ producto.getId_Producto() }}">
+                    <input type="radio" id="star{{ i }}" name="valoracion" value="{{ i }}" required>
+                    <label for="star{{ i }}">&#9733;</label>
+                {% endfor %}
+            </div>
+            <button type="submit_valoracion"  class="boton-enviar">Enviar</button>
+        </form>
+        <div  id="chat">
+            {% if valoraciones is not empty %}
+                {% for valoraciones in valoraciones %}
+                    <div class="chat-message">
+                        <strong>Author ID:</strong> {{ valoraciones.idUser }}<br>
+                        <strong>Message:</strong> {{ valoraciones.valoracion }},
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-messages">No hay valoraciones.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    {# ---------------------------------------------------------------------------------------------------- #}
+{#         <div class="opiniones">
+            {{ include('opinionesProductos.html.twig', {'opiniones': opiniones, 'idProduct':idProduct}) }}
+        </div> #}
+{#                  <div class="valoraciones">
             {{ include('valoracionesProductos.html.twig', {'valoraciones': valoraciones}) }}
-        </div> 
+        </div>  #}
 
 {% endblock %}

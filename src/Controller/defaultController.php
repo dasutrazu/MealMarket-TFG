@@ -80,20 +80,18 @@ class defaultController extends AbstractController{
 
             dump($userId);
 
-            if ($request->request->has('submit_opinion')) {
-                $this->opiniones($request, $userId, $idProduct, $entityManager);    //Llamo a la función que va a manejar la insercion en la base de datos
-                dump($userId);
-            }
             return $this->render("productopag.html.twig", ['producto'=>$productos,
                                                        'opiniones'=>$opiniones,
                                                        'valoraciones'=>$valoraciones,
                                                        'idProduct' => $idProduct,//paso el id del producto para manejar bien los formularios de los productos
+                                                        'usuarioId'=> $userId,
                                                     ]);
         }else{
         return $this->render("productopag.html.twig", ['producto'=>$productos,
                                                        'opiniones'=>$opiniones,
                                                        'valoraciones'=>$valoraciones,
                                                        'idProduct' => $idProduct,//paso el id del producto para manejar bien los formularios de los productos
+                                                        'usuarioId' => null,
                                                     ]);
         }
     }
@@ -113,40 +111,52 @@ class defaultController extends AbstractController{
     }
 
     #[Route('/opiniones', name: 'opiniones')]
-    function opiniones(Request $request, $userId, $idProduct,EntityManagerInterface $entityManager ): void{
+    public function opiniones(Request $request, EntityManagerInterface $entityManager): Response
+    {
         if ($request->isMethod('POST')) {
             try {
                 $opinionText = $request->request->get("opinion");
+                $userId = (int) $request->request->get("UsuarioIdOpiniones");
+                $idProduct = (int) $request->request->get("idProducto");
+        $userId = 1;
                 dump($opinionText); // Verifica que la opinión se está recibiendo
-
+                dump($userId); // Verifica que el ID del usuario se está recibiendo
+                dump($idProduct); // Verifica que el ID del producto se está recibiendo
 
                 $newOpinion = new Opiniones();
                 $newOpinion->setIdUser($userId);
-                dump($idProduct);
                 $newOpinion->setIdProducto($idProduct);
-                dump($userId);
                 $newOpinion->setOpinion($opinionText);
 
                 $entityManager->persist($newOpinion);
                 $entityManager->flush();
+
+                // Redirigir a la página del producto después de guardar la opinión
+                return $this->redirectToRoute('meal', ['idProduct' => $idProduct]);
             } catch (Exception $e) {
                 // Maneja la excepción (por ejemplo, mostrando un mensaje de error)
                 dump($e->getMessage());
             }
         }
+
+        // En caso de que la solicitud no sea POST, redirigir a la página de inicio o mostrar un mensaje de error
+        return $this->redirectToRoute('defaults');
     }
+    
     #[Route('/valoraciones', name: 'valoraciones')]
-    function valoraciones(Request $request, $userId, $idProduct,EntityManagerInterface $entityManager ): ?Valoraciones{
+    function valoraciones(Request $request,EntityManagerInterface $entityManager ): Response{
         if ($request->isMethod('POST')) {
             try {
-                $idProd = $idProduct;
-                $Userid = $userId;
+
                 $valoracion= $request->request->get("valoracion");
+                $userId = (int) $request->request->get("UsuarioIdOpiniones");
+                $idProduct = (int) $request->request->get("idProducto");
+                $userId = 1;
     
                 $new = new Valoraciones();
                 //$new->setIdOpinion($idProd);
-                $new->setIdUser($Userid);
-                $new->setIdProducto($idProd);
+                $new->setIdUser($userId);
+                $new->setIdProducto($idProduct);
                 $new->setValoracion($valoracion);
                 
     
@@ -157,6 +167,8 @@ class defaultController extends AbstractController{
                 dump($e->getMessage());
             }
         }
+        return $this->redirectToRoute('defaults');
+
     }
 
 

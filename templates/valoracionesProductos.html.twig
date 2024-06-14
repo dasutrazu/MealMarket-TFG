@@ -20,24 +20,24 @@
     </div>
     {% block javascript %}
     <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const stars = document.querySelectorAll('.stars label');
-    stars.forEach(star => {
-        star.addEventListener('mouseover', function () {
-            this.style.color = 'gold';
-            let previousSibling = this.previousElementSibling;
-            while (previousSibling) {
-                previousSibling.style.color = 'gold';
-                previousSibling = previousSibling.previousElementSibling;
-            }
-        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const stars = document.querySelectorAll('.stars label');
+            stars.forEach(star => {
+                star.addEventListener('mouseover', function () {
+                    this.style.color = 'gold';
+                    let previousSibling = this.previousElementSibling;
+                    while (previousSibling) {
+                        previousSibling.style.color = 'gold';
+                        previousSibling = previousSibling.previousElementSibling;
+                    }
+                });
 
-        star.addEventListener('mouseout', function () {
-            stars.forEach(label => label.style.color = 'gray');
-            document.querySelectorAll('.stars input:checked ~ label').forEach(label => label.style.color = 'gold');
+                star.addEventListener('mouseout', function () {
+                    stars.forEach(label => label.style.color = 'gray');
+                    document.querySelectorAll('.stars input:checked ~ label').forEach(label => label.style.color = 'gold');
+                });
+            });
         });
-    });
-});
  </script>
     {% endblock %}
 {% endblock %}
