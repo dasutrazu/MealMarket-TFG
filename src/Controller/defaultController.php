@@ -115,10 +115,10 @@ class defaultController extends AbstractController{
     {
         if ($request->isMethod('POST')) {
             try {
+                $userId = $this->getUser()->getIdUser();
                 $opinionText = $request->request->get("opinion");
-                $userId = (int) $request->request->get("UsuarioIdOpiniones");
                 $idProduct = (int) $request->request->get("idProducto");
-        $userId = 1;
+
                 dump($opinionText); // Verifica que la opinión se está recibiendo
                 dump($userId); // Verifica que el ID del usuario se está recibiendo
                 dump($idProduct); // Verifica que el ID del producto se está recibiendo
@@ -147,11 +147,9 @@ class defaultController extends AbstractController{
     function valoraciones(Request $request,EntityManagerInterface $entityManager ): Response{
         if ($request->isMethod('POST')) {
             try {
-
+                $userId = $this->getUser()->getIdUser();
                 $valoracion= $request->request->get("valoracion");
-                $userId = (int) $request->request->get("UsuarioIdOpiniones");
                 $idProduct = (int) $request->request->get("idProducto");
-                $userId = 1;
     
                 $new = new Valoraciones();
                 //$new->setIdOpinion($idProd);
@@ -162,6 +160,9 @@ class defaultController extends AbstractController{
     
                 $entityManager->persist($new);
                 $entityManager->flush();
+                
+                return $this->redirectToRoute('meal', ['idProduct' => $idProduct]);
+
             } catch (Exception $e) {
                 
                 dump($e->getMessage());

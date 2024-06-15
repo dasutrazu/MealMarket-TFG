@@ -67,7 +67,7 @@
                 {% for valoraciones in valoraciones %}
                     <div class="chat-message">
                         <strong>Author ID:</strong> {{ valoraciones.idUser }}<br>
-                        <strong>Message:</strong> {{ valoraciones.valoracion }},
+                        <strong>Message:</strong> {{ valoraciones.valoracion | estrellas }}
                     </div>
                 {% endfor %}
             {% else %}
