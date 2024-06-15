@@ -43,3 +43,20 @@
 .box-Productos img {
   max-width: 100%;
 }
+
+/*----------------------------------------------------------*/
+.cart-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espacio entre elementos */
+}
+
+.inline-form {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.quantity {
+  margin: 0 10px;
+}

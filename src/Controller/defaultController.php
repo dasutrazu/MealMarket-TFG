@@ -116,6 +116,11 @@ class defaultController extends AbstractController{
         if ($request->isMethod('POST')) {
             try {
                 $userId = $this->getUser()->getIdUser();
+                if (!$userId) {
+                    $this->addFlash('error', 'Necesitas estar registrado para añadir productos al carrito.');
+                    return $this->redirectToRoute('login'); // Redirigir a la página de inicio de sesión
+                }
+
                 $opinionText = $request->request->get("opinion");
                 $idProduct = (int) $request->request->get("idProducto");
 
@@ -148,6 +153,11 @@ class defaultController extends AbstractController{
         if ($request->isMethod('POST')) {
             try {
                 $userId = $this->getUser()->getIdUser();
+                if (!$userId) {
+                    $this->addFlash('error', 'Necesitas estar registrado para añadir productos al carrito.');
+                    return $this->redirectToRoute('login'); // Redirigir a la página de inicio de sesión
+                }
+
                 $valoracion= $request->request->get("valoracion");
                 $idProduct = (int) $request->request->get("idProducto");
     
@@ -160,7 +170,7 @@ class defaultController extends AbstractController{
     
                 $entityManager->persist($new);
                 $entityManager->flush();
-                
+
                 return $this->redirectToRoute('meal', ['idProduct' => $idProduct]);
 
             } catch (Exception $e) {
