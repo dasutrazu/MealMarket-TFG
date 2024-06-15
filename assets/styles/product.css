@@ -58,6 +58,10 @@
 .boton-enviar:hover {
     background-color: #45a049; /* Darker Green */
 }
+.form-margen-izquierda {
+    margin-left: 3%;
+}
+
 /*------------------CHAT DIV----------------*/
 #chat {
     max-height: 35vh; /* Altura máxima del contenedor */

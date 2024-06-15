@@ -10,7 +10,7 @@
 
 
 {#     {{ parent() }}
- #}    <div class="containerInsideProducto">
+ #} <div class="containerInsideProducto">
         <img class="product-img" src="{{ producto.img }}" alt="Imagen del producto" />
         <div class="info-box">
             <div class="productInsideName">{{ producto.name }}</div>
@@ -18,6 +18,10 @@
             <div class="priceInsideProduct">{{ producto.price }} €</div>
             <div class="ratings">Valoraciones</div>
         </div>
+        <form action="{{ path('addProducto', {'idProduct': producto.id_producto}) }}" method="post" class="form-margen-izquierda">
+            <input type="hidden" name="id_producto" value="{{ producto.id_producto }}">
+            <button type="submit">Agregar al Carrito</button>
+        </form>
 
     </div>
 
