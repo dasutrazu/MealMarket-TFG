@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-06-2024 a las 10:30:46
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Tiempo de generación: 16-06-2024 a las 11:36:24
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,8 @@ INSERT INTO `carrito` (`id_carrito`, `id_user`) VALUES
 (2, 1),
 (1, 2),
 (12, 4),
-(13, 5);
+(13, 5),
+(30, 26);
 
 -- --------------------------------------------------------
 
@@ -61,15 +62,15 @@ CREATE TABLE `carrito_producto` (
 --
 
 INSERT INTO `carrito_producto` (`id_carritoproducto`, `id_carrito`, `id_producto`, `cantidad`) VALUES
-(3, 1, 40, 1),
-(5, 1, 4, 2),
-(6, 1, 1, 5),
-(7, 1, 2, 56),
 (8, 2, 2, 12),
 (9, 2, 4, 1),
 (10, 2, 1, 2),
 (12, 13, 1, 2),
-(13, 13, 5, 1);
+(13, 13, 5, 1),
+(35, 30, 2, 1),
+(36, 30, 10, 1),
+(37, 30, 14, 1),
+(38, 30, 29, 1);
 
 -- --------------------------------------------------------
 
@@ -135,6 +136,18 @@ CREATE TABLE `opiniones` (
   `OPINION` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `opiniones`
+--
+
+INSERT INTO `opiniones` (`ID_OPINION`, `ID_USER`, `ID_PRODUCTO`, `OPINION`) VALUES
+(1, 2, 1, 'estan muy buenos'),
+(9, 1, 1, 'Son muy utiles los recomiendo 100%'),
+(10, 2, 2, 'estan muy buenos'),
+(11, 2, 15, 'estan muy buenos'),
+(12, 2, 24, 'estan muy buenos'),
+(13, 26, 14, 'Esta muy bueno pero creo q lo deberian a ver metido en la bolsa del frio porq llego derretido');
+
 -- --------------------------------------------------------
 
 --
@@ -174,7 +187,8 @@ INSERT INTO `pedido` (`id_pedido`, `id_user`, `fecha`, `total`) VALUES
 (7, 4, '2024-06-05 20:18:41', 0.00),
 (8, 4, '2024-06-08 19:51:18', 2.65),
 (9, 4, '2024-06-10 08:16:08', 6.15),
-(15, 4, '2024-06-10 22:36:11', 0.00);
+(15, 4, '2024-06-10 22:36:11', 0.00),
+(16, 2, '2024-06-16 07:53:33', 12.24);
 
 -- --------------------------------------------------------
 
@@ -202,7 +216,10 @@ INSERT INTO `pedido_producto` (`id_pedidoproducto`, `id_pedido`, `id_producto`, 
 (6, 8, 1, 1),
 (7, 8, 2, 1),
 (8, 9, 1, 2),
-(9, 9, 5, 1);
+(9, 9, 5, 1),
+(20, 16, 4, 1),
+(21, 16, 1, 6),
+(22, 16, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -1349,7 +1366,8 @@ INSERT INTO `user` (`ID_USER`, `NOMBREUSUARIO`, `PASSWORD`, `EMAIL`, `PUNTOS`, `
 (1, 'test', '$2y$13$KZK1.a98lhf2NQaEHGlTs.wXU1m1oUqVjG2HMpHEl5XMI7yN9vMxq', 'test@gmail.com', 0, 1),
 (2, 'admin', '$2y$13$P3xOGfmQ1l99PrHVcwcZfu7rZSIjl0c2vIwSo822Enrul.UQFUEDa', 'admin@admin.com', 0, 2),
 (4, 'pedro', '$2y$13$y5LSkUXVFCvngGsDI327KeRNBIt2r6txFXBzvZFAr7wconHa0uiyK', 'pedro@pedrito.com', 0, 1),
-(5, 'test2', '$2y$13$lFo7sVpeI4ySanA1N2AOLOOvAUC2C3SzMVdJ1ZrNBXszwVQ8hl5nu', 'test2@gmail.com', 0, 1);
+(5, 'test2', '$2y$13$lFo7sVpeI4ySanA1N2AOLOOvAUC2C3SzMVdJ1ZrNBXszwVQ8hl5nu', 'test2@gmail.com', 0, 1),
+(26, 'Paco ', '$2y$13$H.8OG/lDnBFO7kOaMVieTO0RrACEEExsH/qBaOcUfO6gOSQNUqSVu', 'funalito23@gamaio', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -1363,6 +1381,18 @@ CREATE TABLE `valoraciones` (
   `id_user` int(11) NOT NULL,
   `valoracion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `valoraciones`
+--
+
+INSERT INTO `valoraciones` (`ID_val`, `id_producto`, `id_user`, `valoracion`) VALUES
+(1, 1, 1, 5),
+(2, 2, 1, 5),
+(5, 2, 1, 3),
+(6, 15, 2, 5),
+(7, 24, 2, 5),
+(8, 14, 26, 3);
 
 --
 -- Índices para tablas volcadas
@@ -1460,13 +1490,13 @@ ALTER TABLE `valoraciones`
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `id_carrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id_carrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `carrito_producto`
 --
 ALTER TABLE `carrito_producto`
-  MODIFY `id_carritoproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_carritoproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `favoritos`
@@ -1484,7 +1514,7 @@ ALTER TABLE `messenger_messages`
 -- AUTO_INCREMENT de la tabla `opiniones`
 --
 ALTER TABLE `opiniones`
-  MODIFY `ID_OPINION` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_OPINION` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `password`
@@ -1496,13 +1526,13 @@ ALTER TABLE `password`
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `pedido_producto`
 --
 ALTER TABLE `pedido_producto`
-  MODIFY `id_pedidoproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_pedidoproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
@@ -1514,13 +1544,13 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `ID_USER` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `ID_USER` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `valoraciones`
 --
 ALTER TABLE `valoraciones`
-  MODIFY `ID_val` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_val` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas

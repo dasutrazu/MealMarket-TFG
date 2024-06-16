@@ -113,13 +113,15 @@ class defaultController extends AbstractController{
     #[Route('/opiniones', name: 'opiniones')]
     public function opiniones(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $userId = $this->getUser();
+        if (!$userId) {
+            $this->addFlash('error', 'Necesitas estar registrado para añadir productos al carrito.');
+            return $this->redirectToRoute('login'); // Redirigir a la página de inicio de sesión
+        }
         if ($request->isMethod('POST')) {
             try {
                 $userId = $this->getUser()->getIdUser();
-                if (!$userId) {
-                    $this->addFlash('error', 'Necesitas estar registrado para añadir productos al carrito.');
-                    return $this->redirectToRoute('login'); // Redirigir a la página de inicio de sesión
-                }
+
 
                 $opinionText = $request->request->get("opinion");
                 $idProduct = (int) $request->request->get("idProducto");
@@ -150,6 +152,11 @@ class defaultController extends AbstractController{
     
     #[Route('/valoraciones', name: 'valoraciones')]
     function valoraciones(Request $request,EntityManagerInterface $entityManager ): Response{
+        $userId = $this->getUser();
+        if (!$userId) {
+            $this->addFlash('error', 'Necesitas estar registrado para añadir productos al carrito.');
+            return $this->redirectToRoute('login'); // Redirigir a la página de inicio de sesión
+        }
         if ($request->isMethod('POST')) {
             try {
                 $userId = $this->getUser()->getIdUser();

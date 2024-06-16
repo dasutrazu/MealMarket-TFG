@@ -76,13 +76,7 @@ class loginController extends AbstractController{
             $entityManager->flush();
 
             // Enviar correo electrónico instala =>composer require symfony/google-mailer
-            $email = (new TemplatedEmail())
-            ->from('cjldm2004@gmail.com') // se ecribe el correo de quien envia y en env se pone el mismo correo con la contraseña de aplicaciones externas
-            ->to($user->getEmail())
-            ->subject('Verificación de Correo Electrónico')
-            ->html($this->renderView('correoBienvenida.html.twig', [ 'user' => $user])); //pasamos los parametros a la plantilla del correo
-
-            $mailer->send($email);
+           
                 // Redirige a otra página (por ejemplo, la página de inicio) o renderiza la misma página con un mensaje de éxito
                 return $this->redirectToRoute('login');
         }
